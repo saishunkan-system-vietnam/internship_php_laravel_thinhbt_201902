@@ -15,7 +15,12 @@
         alert("Bắt đầu tính giờ làm bài");
     }
     function confirm(){
-        window
+       if(confirm('Nộp bài trước khi hết giờ?')){
+           $('button').click(function () {
+               $('form').submit();
+           });
+       } 
+
     }
 </script>
 
@@ -40,7 +45,7 @@
                 <td>Time</td><td>45 minutes</td>
             </tr>
         </table>
-        <input type="submit" id="btn1" name="start" onclick="start();disableButton(this);" class="btn btn-success btn-lg" value="Start Exam">
+        <input type="button" id="btn1" name="start" onclick="start();disableButton(this);" class="btn btn-success btn-lg" value="Start Exam">
     </div>
 
 
@@ -87,7 +92,7 @@
                 @endforeach
             </table>
             
-            <button type="submit" onclick="confirm()" class="btn btn-danger btn-lg">
+            <button type="button" onclick="return confirm();" class="btn btn-danger btn-lg">
                 Done
             </button>
         </form>
