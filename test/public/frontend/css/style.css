@@ -1,0 +1,45 @@
+*{
+	padding: 0px;
+	margin: 0px;
+}
+
+body{
+	font-family: Arial;
+	font-size: 16px;
+}
+
+#full{
+	width: 100%;
+	height: auto;
+}
+
+#title h1{
+	text-transform: uppercase;
+	text-align: center;
+	line-height: 130px;
+	font-size: 80px;
+	color: black;
+	font-weight: bold;
+}	
+
+#left div{
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+#left table{
+	font-size: 18px;
+}
+
+#right div{
+	text-align: center;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 18px;
+}
+
+#right table td{
+	font-weight: bold;
+}
+
