@@ -41,7 +41,7 @@
 				<tr>
 					<th style="width: 100px;">Thread</th>
 					<th>Question</th>
-					<th style="width: 100px"></th>
+					{{-- <th style="width: 100px"></th> --}}
 				</tr>
 				@foreach($details as $rowsde)
 				<tr>

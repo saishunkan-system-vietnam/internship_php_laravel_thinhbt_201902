@@ -19,7 +19,7 @@ class UserController extends Controller
     public function listUser(Request $request)
     {
     	//lay toan bo ban ghi
-    	$data["arr"] = User::paginate(5);
+    	$data["arr"] = User::paginate(10);
     	return view("backend.listUser",$data);
     }
 
@@ -51,11 +51,10 @@ class UserController extends Controller
         }else{
         	User::where("id","=",$id)->update(array("name"=>$name,"email"=>$email,"phone"=>$phone));
 		
-		if ($password != "") {
-			$password = Hash::make($password);
-			User::where("id","=",$id)->update(array("password"=>$password)); 
-		}  	
-
+			if ($password != "") {
+				$password = Hash::make($password);
+				User::where("id","=",$id)->update(array("password"=>$password)); 
+			}  	
 		return redirect(url('admin/user'));
         }	
     }

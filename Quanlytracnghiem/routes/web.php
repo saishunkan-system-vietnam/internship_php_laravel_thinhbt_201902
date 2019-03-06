@@ -33,7 +33,9 @@ Route::get("logout",function(){
 
 //Group admin
 Route::group(array("prefix"=>"admin","middleware"=>"auth"), function(){
-
+	
+	//--------------------------------------------------------------------
+	//--------------------------------------------------------------------
 	//list user
 	Route::get("user","UserController@listUser");
 
@@ -52,6 +54,7 @@ Route::group(array("prefix"=>"admin","middleware"=>"auth"), function(){
 	//delete user
 	Route::get("user/delete/{id}","UserController@delete");
 	
+	
 	//--------------------------------------------------------------------
 	//--------------------------------------------------------------------
 	//list result
@@ -59,6 +62,7 @@ Route::group(array("prefix"=>"admin","middleware"=>"auth"), function(){
 
 	//delete result
 	Route::get("result/delete/{id}","ResultController@delete");
+
 
 	//--------------------------------------------------------------------
 	//--------------------------------------------------------------------
@@ -96,7 +100,6 @@ Route::group(array("prefix"=>"admin","middleware"=>"auth"), function(){
 	Route::post("thread/detailEdit/{id}","ThreadController@detailDoEdit");
 
 
-
 	//--------------------------------------------------------------------
 	//--------------------------------------------------------------------
     //list question
@@ -117,22 +120,27 @@ Route::group(array("prefix"=>"admin","middleware"=>"auth"), function(){
 	//delete
 	Route::get("question/delete/{id}","QuestionController@delete");
 
-	//--------------------------------------------------------------------
 
-	//--------------------
+	//--------------------------------------------------------------------
+	//--------------------------------------------------------------------
 	//answer
+	Route::get("answer","AnswerController@listAnswer");
+
 	//add answer
+
 	Route::get("question/answerAdd/{id}","QuestionController@answerAdd");
 
 	//do add answer
 	Route::post("question/answerAdd/{id}","QuestionController@answerDoAdd");
 
 	//add answer
-	Route::get("question/answerEdit/{id}","QuestionController@answerEdit");
+	Route::get("answer/answerEdit/{id}","AnswerController@answerEdit");
 
 	//do add answer
-	Route::post("question/answerEdit/{id}","QuestionController@answerDoEdit");
-	//--------------------
+	Route::post("answer/answerEdit/{id}","AnswerController@answerDoEdit");
+
+	//delete
+	Route::get("answer/delete/{id}","AnswerController@delete");
 	
 });
 
@@ -144,7 +152,10 @@ Route::get("/", function(){
     return redirect(url("index/signin"));
 });
 
-Route::get("/exam", function(){
+// Route::get("/exam", function(){
+//     return redirect(url("index/signin"));
+// });
+Route::get("index/exam", function(){
     return redirect(url("index/signin"));
 });
 
@@ -162,7 +173,6 @@ Route::group(['prefix'=>'index'],function(){
 	//results
 	Route::get("results","IndexController@getResult");
 
-            
 	//logout
 	Route::get("signout","IndexController@getLogout");
 });

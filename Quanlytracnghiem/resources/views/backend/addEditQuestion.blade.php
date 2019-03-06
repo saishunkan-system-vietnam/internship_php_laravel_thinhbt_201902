@@ -26,6 +26,9 @@
 				<div class="col-md-2">Question</div>
 				<div class="col-md-10">
 					<input type="text" name="content" id="content" value="{{ old('content') != '' ?old('content'):(isset($record->content)?$record->content:'') }}" placeholder="Câu hỏi" class="form-control">
+					{{-- <script>
+						CKEDITOR.replace('content');
+					</script> --}}
 				</div>
 			</div>
 			<!-- end rows -->

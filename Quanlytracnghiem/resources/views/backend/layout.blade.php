@@ -2,7 +2,8 @@
 <html>
 <head>
 	<title>Admin page</title>
-	<meta charset="utf-8">
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href= "{{ asset('frontend/images/icons/favicon.ico') }}"/>
 	<link rel="stylesheet" type="text/css" href="{{ asset('backend/css/bootstrap.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/fontawesome.min.css')}}">
   <!-- load thu vien jquery -->
@@ -28,6 +29,7 @@
             <li class="active"><a href="{{ url('') }}">Trang bài làm</a></li>
             <li class="active"><a href="{{ url('admin/thread') }}">Quản lý đề</a></li>
             <li class="active"><a href="{{ url('admin/question') }}">Quản lý câu hỏi</a></li>
+            <li class="active"><a href="{{ url('admin/answer') }}">Câu trả lời</a></li>
             <li class="active"><a href="{{ url('admin/result') }}">Quản lý điểm</a></li>
             <li class="active"><a href="{{ url('admin/user') }}">Quản lý user</a></li>
             <li class="active"><a href="{{ url('logout') }}">Đăng xuất</a></li>

@@ -8,25 +8,83 @@
         <h1>Quiz Exam</h1>
     </div>
 </div>
+<style>
+    #scroll{
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 30px;
+        z-index: 99;
+        font-size: 18px;
+        border: none;
+        outline: none;
+        background-color: red;
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 4px;
+    }
+    #scroll:hover{
+        background-color: #555;
+    }
+</style>
 
 <script>
+    //-----------------------------------------------------------------------------------
+    //disable sau khi start
     function disableButton(btn){
         document.getElementById(btn.id).disabled = true;
         alert("Bắt đầu tính giờ làm bài");
     }
-    
-</script>
 
-<script>
-    function confirm(){
+    //-----------------------------------------------------------------------------------
+    //nop bai truoc khi het gio
+    function access(){
         //window.confirm("Nộp bài trước khi hết giờ?");
         var message = confirm("Nộp bài trước khi hết giờ?");
-        // if (message == true) {
-        //     document.getElementById("examForm").submit();
-        // }
+        if (message == true) {
+            document.getElementById("examForm").submit();
+        }
     }
-</script>
 
+    //-----------------------------------------------------------------------------------
+    //scroll to top
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("scroll").style.display = "block";
+        } else {
+            document.getElementById("scroll").style.display = "none";
+        }
+    }
+
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+
+    //-----------------------------------------------------------------------------------
+    //khong cho reload, neu reload se submit form
+    document.onkeydown = function() 
+    {
+        switch (event.keyCode) 
+        {
+            case 116 : //F5 button
+                return access();
+            case 82 : //R button
+                if (event.ctrlKey) 
+                {
+                    return access();
+                }
+        }
+    }
+
+    
+</script>
+<button onclick="topFunction()" id="scroll">
+        Top
+</button>
  <!-- content -->
 <div class="row" id="content">
     <div id="left" class="col-lg-3 col-md-3 col-sm-12 col-12">
@@ -45,7 +103,7 @@
                 <td>Student code</td><td>{{Auth::user()->id}}</td>
             </tr>
             <tr>
-                <td>Time</td><td>45 minutes</td>
+                <td>Time</td><td>{{ $time->time }} minutes</td>
             </tr>
         </table>
         <input type="button" id="btn1" name="start" onclick="start();disableButton(this);" class="btn btn-success btn-lg" value="Start Exam">
@@ -58,20 +116,22 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="card card-header bg-info text-light">Thread</div>
             <br>
-            <div style="color: red;font-size:30px; text-align: left">Time:  <span id="m"></span> : <span id="s"></span> </div>
+            <div style="background-color: red;color: white;font-size:30px; text-align: center">Time:  <span id="m">{{ $time->time }}</span>:<span id="s">00</span> </div>
             <table>
                 <tr>
                 <td><br></td>
                 </tr>
                 @foreach($threads as $questions)
                 <tr>
-                    <td>Question :  {{ $questions['content'] }} </td><td style="text-align: right">{{ $questions['point'] }} point</td>
+                    <td>Question :  {{ $questions['content'] }} </td><td style="text-align: right;color: red">{{ $questions['point'] }} point</td>
                 </tr>
                 <input type="hidden" name="point[{{ $questions['questions_id'] }}]" value="{{$questions['point']}}">
                 <tr>
                     <td><br></td>
                 </tr>
+                {{-- dem so cau tra loi dung cua 1 cau hoi --}}
                 <input type="hidden" name="count[{{ $questions['questions_id'] }}]" value="{{ $questions['count'] }}" >
+                    {{-- neu so cau tra loi dung chi co 1 thi dung radio --}}
                     @if($questions['count'] == 1)
                         @foreach($questions['answers'] as $answers)
                 <tr>
@@ -81,6 +141,7 @@
                     <td><br></td>
                 </tr>
                         @endforeach
+                    {{-- neu so cau tra loi dung > 1 thi dung checkbox --}}
                     @elseif($questions['count'] > 1)
                         @foreach($questions['answers'] as $answers)
                 <tr>
@@ -95,8 +156,12 @@
                 @endforeach
             </table>
             
-            <button type="button" onclick="confirm();" class="btn btn-danger btn-lg">
+            <button type="button" onclick="access();" class="btn btn-danger btn-lg">
                 Done
+            </button>
+
+            <button type="reset" class="btn btn-info btn-lg">
+                Reset Answer
             </button>
         </form>
     </div>
@@ -104,8 +169,8 @@
 
 <script>
     var h = 0; // Giờ
-    var m = 0; // Phút
-    var s = 30; // Giây
+    var m = 30; // Phút
+    var s = 00; // Giây
         
     var timeout = null; // Timeout
     function start()

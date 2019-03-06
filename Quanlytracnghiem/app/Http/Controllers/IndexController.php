@@ -46,35 +46,38 @@ class IndexController extends Controller
     	}
     }
     
-
     public function listExam(Request $request)
-    {
+    {   
         $check = Auth::id();
+        
        	$data['threads'] = DB::table('threads')->join('thread_details','threads.id','=','thread_details.threads_id')
                                                ->join('questions','thread_details.questions_id','=','questions.id')
                                                ->select('threads.id','thread_details.questions_id','threads.user_id','questions.content','questions.point','threads.time','threads.total_point')
                                                ->where('threads.user_id','=',$check)
+                                               ->inRandomOrder()
                                                ->get()->toArray();
-											   
         foreach ($data['threads'] as $key => $value) {
             
             $threads['answers'] = DB::table('answers')->where('questions_id','=',$value->questions_id)->get()->toArray();
             $data['threads'][$key] = array_merge((array) $data['threads'][$key], $threads);
-            
+
             //dem so cau tra loi de su dung checkbox hoac radio
             $count = 0;
+            //neu co cau tra loi dung nhieu hon 1 thi tang count len 1 don vi
             foreach ($threads['answers'] as $answers) {
                 if ($answers->type == 1) {
                         $count++;
                 }
             }
+            //gan lai vao bien count
             $data['threads'][$key]['count'] = $count;
         }
-            
+        
+        //tinh gio
+        $data['time'] = DB::table('threads')->where("user_id","=",$check)->first();
+
         return view('frontend.exam',$data);
     }
-    
-    
     
     public function getResult(Request $request)
     {	
@@ -128,6 +131,7 @@ class IndexController extends Controller
             //luu cau tra loi
             $answers_id = "";
             foreach ($answers['answer'] as $value) {
+                //neu cau hoi co nhieu cau tra loi
                 if (is_array($value)) {
                     $answers_id = $answers_id . implode(',',$value) . ',';
                     
@@ -135,14 +139,13 @@ class IndexController extends Controller
                     $answers_id = $answers_id . $value . ',';
                 }
             }
+            //xoa dau ',' cuoi cung
             $finalAns = rtrim($answers_id,',');
         }else {
+            //truong hop trong bai lam khong tich cau tra loi
             $total = 0;
             $finalAns = 0;
         }
-
-        
-        
         
         
         //luu vao bang results
@@ -161,7 +164,6 @@ class IndexController extends Controller
                                             ->first();
 
         return view('frontend.results',$data);
-        //return redirect(url('index/results'));
     }
 
 

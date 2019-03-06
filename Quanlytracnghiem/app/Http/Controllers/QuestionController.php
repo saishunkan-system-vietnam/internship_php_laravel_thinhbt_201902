@@ -18,10 +18,10 @@ class QuestionController extends Controller
     	$data['questions'] = DB::table('questions')->join('answers','questions.id','=','answers.questions_id')
                                                    ->select(DB::raw('group_concat(answers.answers) as answers'),'questions.content','questions.id','questions.point','answers.type')
                                                    ->groupBy('questions.id','questions.content','answers.type')
-                                                   ->paginate(5);
+                                                   ->orderBy('questions.id','desc')
+                                                   ->paginate(10);
     	return view('backend.listQuestion',$data);
     }
-
 
     //question edit
     public function edit(Request $request,$id)
@@ -148,9 +148,11 @@ class QuestionController extends Controller
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        
         return redirect(url('admin/question'));
     }
 
+    //delete
     public function delete(Request $request, $id){
     	DB::table('questions')->where('id','=',$id)->delete();
     	DB::table('answers')->where('questions_id','=',$id)->delete();

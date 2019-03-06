@@ -22,18 +22,18 @@
 			</div>
 			<!-- end rows -->
 			<!-- rows -->
-			<div class="row" style="margin-top:5px;">
+			{{-- <div class="row" style="margin-top:5px;">
 				<div class="col-md-2">Thread</div>
 				<div class="col-md-10">
 					<input type="text" name="content" class="form-control" value="{{$arr->content}}" disabled>
 				</div>
-			</div>
+			</div> --}}
 			<!-- end rows -->
 			<!-- rows -->
 			<div class="row" style="margin-top:5px;">
 				<div class="col-md-2">Answer</div>
 				<div class="col-md-10">
-                   <input type="text" name="answers" id="answers" value="{{ old('answers') !='' ?old('answers'):(isset($answers->answers)?$answers->answers:'') }}" placeholder="Câu trả lời" class="form-control">
+                   <input type="text" name="answers" id="answers" value="{{ old('answers') !='' ? old('answers'):(isset($answers->answers)?$answers->answers:'') }}" placeholder="Câu trả lời" class="form-control">
 				</div>
 			</div>
 			<!-- end rows -->
@@ -56,6 +56,7 @@
 					<input type="submit" value="Process" class="btn btn-primary">
 					<input type="reset" value="Clear" class="btn btn-danger">
 					<a href="{{ url('admin/question')}}" class="btn btn-warning">Cancel</a>
+					<a href="{{ url('admin/answer')}}" class="btn btn-success">Answer</a>
 				</div>
 			</div>
 			<!-- end rows -->

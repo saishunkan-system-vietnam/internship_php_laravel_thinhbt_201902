@@ -31,7 +31,6 @@ class ThreadController extends Controller
    //edit
     public function edit(Request $request, $id){
     	//lay 1 ban ghi
-
     	$data["record"] = DB::table('threads')->where("id","=",$id)->first();
     	$data["arr"] = DB::table('users')->get();
     	return view("backend.addEditThread",$data);
@@ -43,9 +42,23 @@ class ThreadController extends Controller
     	$total_point = $request->get('total_point');
     	$user_id = $request->get('user_id');
 
+        //validate
+    	$validator = Validator::make($request->all(), [
+            'time' => 'bail|required|numeric',
+           'total_point' => 'bail|required|numeric'
+            
+       ]);
+       
+        if ($validator->fails()) {
+           return redirect('admin/thread/edit/'.$id)
+                       ->withErrors($validator)
+                       ->withInput($request->input());
+       }else{
+
         DB::table('threads')->where('id','=',$id)->update(array('time'=>$time,'total_point'=>$total_point,'user_id'=>$user_id));
 
-    	return redirect(url('admin/thread'));
+        return redirect(url('admin/thread'));
+       }
     }
 
     //add
