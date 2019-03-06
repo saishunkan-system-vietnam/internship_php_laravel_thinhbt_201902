@@ -14,13 +14,16 @@
         document.getElementById(btn.id).disabled = true;
         alert("Bắt đầu tính giờ làm bài");
     }
-    function confirm(){
-       if(confirm('Nộp bài trước khi hết giờ?')){
-           $('button').click(function () {
-               $('form').submit();
-           });
-       } 
+    
+</script>
 
+<script>
+    function confirm(){
+        //window.confirm("Nộp bài trước khi hết giờ?");
+        var message = confirm("Nộp bài trước khi hết giờ?");
+        // if (message == true) {
+        //     document.getElementById("examForm").submit();
+        // }
     }
 </script>
 
@@ -51,7 +54,7 @@
 
 <!-- right -->
     <div id="right" class="col-lg-9 col-md-9 col-sm-12 col-12">
-        <form action="{{ url('index/results') }}">
+        <form id="examForm" action="{{ url('index/results') }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="card card-header bg-info text-light">Thread</div>
             <br>
@@ -92,7 +95,7 @@
                 @endforeach
             </table>
             
-            <button type="button" onclick="return confirm();" class="btn btn-danger btn-lg">
+            <button type="button" onclick="confirm();" class="btn btn-danger btn-lg">
                 Done
             </button>
         </form>

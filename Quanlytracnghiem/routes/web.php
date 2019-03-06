@@ -140,7 +140,11 @@ Route::group(array("prefix"=>"admin","middleware"=>"auth"), function(){
 //--------------------------------------------------------------------------
 //--------------------------------------------------------------------------
 //front end
-Route::get("index", function(){
+Route::get("/", function(){
+    return redirect(url("index/signin"));
+});
+
+Route::get("/exam", function(){
     return redirect(url("index/signin"));
 });
 

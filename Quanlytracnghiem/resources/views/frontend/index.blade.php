@@ -41,7 +41,7 @@
 <!--===============================================================================================-->
 	<script src="{{ asset('frontend/vendor/animsition/js/animsition.min.js') }}"></script>
 <!--===============================================================================================-->
-	<script src="{{ asset('frontend/vendor/bootstrap/js/popper.js') }}"></script>
+	{{-- <script src="{{ asset('frontend/vendor/bootstrap/js/popper.js') }}"></script> --}}
 	<script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 <!--===============================================================================================-->
 	<script src="{{ asset('frontend/vendor/select2/select2.min.js') }}"></script>
