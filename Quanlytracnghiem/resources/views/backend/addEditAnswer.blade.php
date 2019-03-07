@@ -22,14 +22,6 @@
 			</div>
 			<!-- end rows -->
 			<!-- rows -->
-			{{-- <div class="row" style="margin-top:5px;">
-				<div class="col-md-2">Thread</div>
-				<div class="col-md-10">
-					<input type="text" name="content" class="form-control" value="{{$arr->content}}" disabled>
-				</div>
-			</div> --}}
-			<!-- end rows -->
-			<!-- rows -->
 			<div class="row" style="margin-top:5px;">
 				<div class="col-md-2">Answer</div>
 				<div class="col-md-10">

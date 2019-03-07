@@ -34,7 +34,7 @@
 				<div class="col-md-2">Question</div>
 				<div class="col-md-10">
                    <select name="questions_id" class="btn btn-default btn-block" >
-                   		@foreach($questions as $rows)
+						@foreach($questions as $rows)
 						<option value="{{$rows->id}}">{{$rows->content}}</option>
 						@endforeach
 					</select>

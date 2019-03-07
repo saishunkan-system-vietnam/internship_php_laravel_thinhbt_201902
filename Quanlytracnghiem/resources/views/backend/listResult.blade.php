@@ -18,7 +18,7 @@
 				</tr>
 				@foreach($arr as $rows)
 				<tr>
-					<td>{{ $rows->users_id }}</td>
+					<td>{{ $rows->name }}</td>
 					<td>{{ $rows->threads_id }}</td>
 					<td>{{ $rows->answers_id }}</td>
 					<td>{{ $rows->users_point }}</td>

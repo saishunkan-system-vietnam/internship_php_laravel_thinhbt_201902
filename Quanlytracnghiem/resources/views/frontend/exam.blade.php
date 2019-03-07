@@ -160,7 +160,7 @@
                 Done
             </button>
 
-            <button type="reset" class="btn btn-info btn-lg">
+            <button type="reset" class="btn btn-primary btn-lg">
                 Reset Answer
             </button>
         </form>
@@ -170,7 +170,7 @@
 <script>
     var h = 0; // Giờ
     var m = 30; // Phút
-    var s = 00; // Giây
+    var s = 0; // Giây
         
     var timeout = null; // Timeout
     function start()

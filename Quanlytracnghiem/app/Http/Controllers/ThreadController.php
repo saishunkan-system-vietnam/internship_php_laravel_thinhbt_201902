@@ -19,33 +19,36 @@ class ThreadController extends Controller
    public function listThread(Request $request)
    {
         $data['arr'] = DB::table('threads')->join('users','threads.user_id','=','users.id')
-                                           ->select('threads.id','threads.time','threads.total_point','users.name')
-                                           ->paginate(5);
+                                           ->select('threads.id','threads.time','threads.total_point','users.name','threads.total_questions')
+                                           ->paginate(3);
         $data['details'] = DB::table('thread_details')->join('questions','thread_details.questions_id','=','questions.id')
-                                                      ->select(DB::raw('group_concat(questions.content) as content'),'thread_details.threads_id')
+                                                      ->select(DB::raw('group_concat(questions.content) as content'),'thread_details.threads_id',DB::raw('sum(questions.point) as point'))
                                                       ->groupBy('thread_details.threads_id')
-                                                      ->paginate(5);
+                                                      ->paginate(3);
         return view('backend.listThread',$data);
    }
 
    //edit
     public function edit(Request $request, $id){
     	//lay 1 ban ghi
-    	$data["record"] = DB::table('threads')->where("id","=",$id)->first();
-    	$data["arr"] = DB::table('users')->get();
+    	$data["record"] = DB::table('threads')->where('id','=',$id)->first();
+        $data["arr"] = DB::table('users')->get();
     	return view("backend.addEditThread",$data);
     }
 
     //do_edit
     public function doEdit(Request $request, $id){
     	$time = $request->get('time');
-    	$total_point = $request->get('total_point');
-    	$user_id = $request->get('user_id');
-
+        $total_point = $request->get('total_point');
+        $total_questions = $request->get('total_questions');
+        $user_id = $request->get('user_id');
+        $old_questions = old('total_questions');
+        //dd($old_questions);
         //validate
     	$validator = Validator::make($request->all(), [
             'time' => 'bail|required|numeric',
-           'total_point' => 'bail|required|numeric'
+           'total_point' => 'bail|required|numeric',
+           'total_questions' =>'bail|required|numeric'
             
        ]);
        
@@ -54,9 +57,23 @@ class ThreadController extends Controller
                        ->withErrors($validator)
                        ->withInput($request->input());
        }else{
-
-        DB::table('threads')->where('id','=',$id)->update(array('time'=>$time,'total_point'=>$total_point,'user_id'=>$user_id));
-
+        
+        $threads = DB::table('threads')->where('id','=',$id)->update(['time'=>$time,'total_point'=>$total_point,'total_questions'=>$total_questions,'user_id'=>$user_id]);
+        $questions =  Question::inRandomOrder()->limit($total_questions)->get(['id']);
+        if ($threads == 1 && $total_questions != '') {
+            ThreadDetail::where('threads_id','=',$id)->delete();
+            $data = [];
+            foreach ($questions as $question) {
+                $data[] = [
+                    'threads_id' => $id,
+                    'questions_id' => $question->id,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ];
+            }
+            ThreadDetail::insert($data);
+        }
+        
         return redirect(url('admin/thread'));
        }
     }
@@ -73,13 +90,15 @@ class ThreadController extends Controller
     public function doAdd(Request $request)
     {
     	$time = $request->get('time');
-    	$total_point = $request->get('total_point');
+        $total_point = $request->get('total_point');
+        $total_questions = $request->get('total_questions');
     	$user_id = $request->get('user_id');
 
     	//validate
     	$validator = Validator::make($request->all(), [
     	 	'time' => 'bail|required|numeric',
             'total_point' => 'bail|required|numeric',
+            'total_questions' =>'bail|required|numeric'
 
         ]);
 
@@ -89,20 +108,34 @@ class ThreadController extends Controller
                         ->withInput();
         }
 
+
     	//Thread::insert(array("thread"=>$thread,"time"=>$time,"total_point"=>$total_point,"user_id"=>$user_id));
 
+        // $threadT = new Thread;
+        // $threadT->time = $time;
+        // $threadT->total_point = $total_point;
+        // $threadT->total_questions = $total_questions;
+        // $threadT->user_id = $user_id;
+        // $threadT->created_at = now();
+        // $threadT->updated_at = now();
+        // $threadT->save();
+
+        // su dung transaction luu du lieu cho 2 bang
+        // neu bang 1 ko insert dc thi bang 2 cung ko insert
         try {
             DB::beginTransaction();
             $threadT = new Thread;
             $threadT->time = $time;
             $threadT->total_point = $total_point;
+            $threadT->total_questions = $total_questions;
             $threadT->user_id = $user_id;
             $threadT->created_at = now();
             $threadT->updated_at = now();
 
             if($threadT->save()) {
                 $threadId = $threadT->id;
-                $questions = Question::get(['id']);
+                $threadQ = $threadT->total_questions;
+                $questions = Question::inRandomOrder()->limit($threadQ)->get(['id']);
                 $data = [];
                 foreach ($questions as $question) {
                     $data[] = [
@@ -124,51 +157,6 @@ class ThreadController extends Controller
     }
     //--------------------------------------------------------------
     //--------------------------------------------------------------
-
-    // detail add
-    public function detailAdd(Request $request,$id)
-    {
-    	$data["arr"] = DB::table('threads')->where("id","=",$id)->first();
-        $data['questions'] = DB::table('questions')->get();
-
-    	$data['answers'] = DB::table('answers')->join('questions','answers.questions_id','=','questions.id')
-                                               ->select(DB::raw('group_concat(answers.answers) as answers'),'questions.content','answers.type','questions.id','questions.point')
-                                               ->groupBy('questions.id','answers.type')
-                                               ->paginate(5);
-
-    	return view('backend.addEditDetail',$data);
-    }
-
-    // detail do add
-    public function detailDoAdd(Request $request,$id){
-       $questions_id = $request->get('questions_id');
-       
-       DB::table('thread_details')->where('id','=',$id)->insert([
-           'threads_id' => $request->route('id'),
-           'questions_id'=>$questions_id,
-           'created_at' => now(),
-           'updated_at' => now()
-       ]);
-
-       return redirect(url('admin/thread'));
-    }
-
-
-    // detail edit
-    public function detailEdit(Request $request,$id)
-    {
-    	$data["record"] = DB::table('threads')->where("id","=",$id)->first();
-    	$data["arr"] = DB::table('threads')->where("id","=",$id)->first();
-        $data['questions'] = DB::table('questions')->get();
-        $data['answers'] = DB::table('answers')->join('questions','answers.questions_id','=','questions.id')
-                                               ->select('questions.content','answers.answers','answers.type','questions.id','questions.point')
-                                               ->get();
-    	return view('backend.addEditDetail',$data);
-    }
-
-	//--------------------------------------------------------------
-    //--------------------------------------------------------------
-    
 
     //delete thread
     public function delete(Request $request, $id){

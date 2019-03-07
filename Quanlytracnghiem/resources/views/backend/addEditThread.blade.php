@@ -39,6 +39,14 @@
 				<!-- end rows -->
 				<!-- rows -->
 				<div class="row" style="margin-top:5px;">
+					<div class="col-md-2">Total Question</div>
+					<div class="col-md-10">
+						<input type="text" id="total_questions" value="{{ old('total_questions') !='' ? old('total_questions'):(isset($record->total_questions)?$record->total_questions:'') }}" name="total_questions" class="form-control" placeholder="Tổng câu hỏi">
+					</div>
+				</div>
+				<!-- end rows -->
+				<!-- rows -->
+				<div class="row" style="margin-top:5px;">
 					<div class="col-md-2">Student</div>
 					<div class="col-md-10">
 						<select name="user_id" class="btn btn-default btn-block" >

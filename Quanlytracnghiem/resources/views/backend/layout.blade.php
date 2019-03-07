@@ -28,6 +28,7 @@
             <li class="active"><a href="#">Xin chào, {{ Auth::user()->name }}</a></li>
             <li class="active"><a href="{{ url('') }}">Trang bài làm</a></li>
             <li class="active"><a href="{{ url('admin/thread') }}">Quản lý đề</a></li>
+            <li class="active"><a href="{{ url('admin/detail') }}">Chi tiết đề</a></li>
             <li class="active"><a href="{{ url('admin/question') }}">Quản lý câu hỏi</a></li>
             <li class="active"><a href="{{ url('admin/answer') }}">Câu trả lời</a></li>
             <li class="active"><a href="{{ url('admin/result') }}">Quản lý điểm</a></li>

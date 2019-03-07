@@ -127,7 +127,6 @@ Route::group(array("prefix"=>"admin","middleware"=>"auth"), function(){
 	Route::get("answer","AnswerController@listAnswer");
 
 	//add answer
-
 	Route::get("question/answerAdd/{id}","QuestionController@answerAdd");
 
 	//do add answer
@@ -142,6 +141,14 @@ Route::group(array("prefix"=>"admin","middleware"=>"auth"), function(){
 	//delete
 	Route::get("answer/delete/{id}","AnswerController@delete");
 	
+	//--------------------------------------------------------------------
+	//--------------------------------------------------------------------
+	//detail
+	Route::get("detail","DetailController@listDetail");
+
+	//delete
+	Route::get("detail/delete/{id}","DetailController@delete");
+
 });
 
 //--------------------------------------------------------------------------
