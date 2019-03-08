@@ -168,8 +168,8 @@
 </div>
 
 <script>
-    var h = 0; // Giờ
-    var m = 1; // Phút
+    //var h = 0; // Giờ
+    var m = {{ $time->time }}; // Phút
     var s = 0; // Giây
         
     var timeout = null; // Timeout
@@ -204,12 +204,12 @@
         //     return false;
         // }
     
-        /*BƯỚC 1: HIỂN THỊ ĐỒNG HỒ*/
+        /*BƯỚC 2: HIỂN THỊ ĐỒNG HỒ*/
         // document.getElementById('h').innerText = h.toString();
         document.getElementById('m').innerText = m.toString();
         document.getElementById('s').innerText = s.toString();
     
-        /*BƯỚC 1: GIẢM PHÚT XUỐNG 1 GIÂY VÀ GỌI LẠI SAU 1 GIÂY */
+        /*BƯỚC 3: GIẢM PHÚT XUỐNG 1 GIÂY VÀ GỌI LẠI SAU 1 GIÂY */
         timeout = setTimeout(function(){
             s--;
             start();
