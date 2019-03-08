@@ -25,7 +25,7 @@
 			<div class="row" style="margin-top:5px;">
 				<div class="col-md-2">Name</div>
 				<div class="col-md-10">
-					<input type="text" id="name" value="{{ old('name') != '' ? old('name'):isset($record->name)?$record->name:'' }}" name="name" class="form-control" placeholder="Nguyen Van A" >
+					<input type="text" autofocus id="name" value="{{ old('name') != '' ? old('name'):isset($record->name)?$record->name:'' }}" name="name" class="form-control" placeholder="Nguyen Van A" >
 				</div>
 			</div>
 			<!-- end rows -->

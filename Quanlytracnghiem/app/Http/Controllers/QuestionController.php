@@ -88,7 +88,7 @@ class QuestionController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-
+        //them cau hoi dong thoi co dap an
         try {
 			DB::beginTransaction();
 			$question = new Question;

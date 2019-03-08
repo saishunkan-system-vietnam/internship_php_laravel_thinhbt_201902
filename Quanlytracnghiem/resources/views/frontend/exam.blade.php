@@ -169,7 +169,7 @@
 
 <script>
     var h = 0; // Giờ
-    var m = 30; // Phút
+    var m = 1; // Phút
     var s = 0; // Giây
         
     var timeout = null; // Timeout
@@ -189,18 +189,20 @@
         //  - giảm số giờ xuống 1 đơn vị
         //  - thiết lập số phút lại 59
         if (m === -1){
-            h -= 1;
-            m = 59;
-        }
-    
-        // Nếu số giờ = -1 tức là đã hết giờ, lúc này:
-        //  - Dừng chương trình
-        if (h == -1){
             clearTimeout(timeout);
             alert('Hết giờ');
             location.href = "results";
             return false;
         }
+    
+        // Nếu số giờ = -1 tức là đã hết giờ, lúc này:
+        //  - Dừng chương trình
+        // if (h == -1){
+        //     clearTimeout(timeout);
+        //     alert('Hết giờ');
+        //     location.href = "results";
+        //     return false;
+        // }
     
         /*BƯỚC 1: HIỂN THỊ ĐỒNG HỒ*/
         // document.getElementById('h').innerText = h.toString();

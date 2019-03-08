@@ -15,7 +15,7 @@ class ResultController extends Controller
         
         $data["arr"] = DB::table('results')->join('users','results.users_id','=','users.id')
                                            ->join('answers','results.answers_id','=','answers.id')   
-                                           ->select('users.name','results.threads_id','results.users_point','results.answers_id','results.id')
+                                           ->select('users.name','results.threads_id','results.users_point','results.answers_id','answers.questions_id','results.id')
                                            ->get();
     	return view("backend.listResult",$data);
     }

@@ -25,7 +25,7 @@
 			<div class="row" style="margin-top:5px;">
 				<div class="col-md-2">Answer</div>
 				<div class="col-md-10">
-                   <input type="text" name="answers" id="answers" value="{{ old('answers') !='' ? old('answers'):(isset($answers->answers)?$answers->answers:'') }}" placeholder="Câu trả lời" class="form-control">
+                   <input type="text" autofocus name="answers" id="answers" value="{{ old('answers') !='' ? old('answers'):(isset($answers->answers)?$answers->answers:'') }}" placeholder="Câu trả lời" class="form-control">
 				</div>
 			</div>
 			<!-- end rows -->

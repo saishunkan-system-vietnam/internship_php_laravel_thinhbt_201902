@@ -42,9 +42,7 @@ class ThreadController extends Controller
         $total_point = $request->get('total_point');
         $total_questions = $request->get('total_questions');
         $user_id = $request->get('user_id');
-        $old_questions = old('total_questions');
-        //dd($old_questions);
-        //validate
+        
     	$validator = Validator::make($request->all(), [
             'time' => 'bail|required|numeric',
            'total_point' => 'bail|required|numeric',
@@ -57,10 +55,11 @@ class ThreadController extends Controller
                        ->withErrors($validator)
                        ->withInput($request->input());
        }else{
-        
+        //update ban ghi 
         $threads = DB::table('threads')->where('id','=',$id)->update(['time'=>$time,'total_point'=>$total_point,'total_questions'=>$total_questions,'user_id'=>$user_id]);
+        //neu thay doi so luong cau hoi thi se xoa bo cau hoi cu vao random lai
         $questions =  Question::inRandomOrder()->limit($total_questions)->get(['id']);
-        if ($threads == 1 && $total_questions != '') {
+        if ($threads == 1 && $total_questions != $request->old('total_questions')) {
             ThreadDetail::where('threads_id','=',$id)->delete();
             $data = [];
             foreach ($questions as $question) {
@@ -81,7 +80,6 @@ class ThreadController extends Controller
     //add
     public function add(Request $request)
     {
-
     	$data['arr'] = DB::table('users')->get();
     	return view('backend.addEditThread',$data);
     }

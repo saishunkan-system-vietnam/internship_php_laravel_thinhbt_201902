@@ -50,7 +50,6 @@ class UserController extends Controller
                         ->withInput($request->input());
         }else{
         	User::where("id","=",$id)->update(array("name"=>$name,"email"=>$email,"phone"=>$phone));
-		
 			if ($password != "") {
 				$password = Hash::make($password);
 				User::where("id","=",$id)->update(array("password"=>$password)); 

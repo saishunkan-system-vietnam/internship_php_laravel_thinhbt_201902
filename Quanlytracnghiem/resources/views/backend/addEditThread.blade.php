@@ -25,7 +25,7 @@
 				<div class="row" style="margin-top:5px;">
 					<div class="col-md-2">Time</div>
 					<div class="col-md-10">
-					<input type="text" id="time" value="{{ old('time') !='' ? old('time'):(isset($record->time)?$record->time:'') }}" name="time" class="form-control" placeholder="Thời giam làm bài">
+					<input type="text" autofocus id="time" value="{{ old('time') !='' ? old('time'):(isset($record->time)?$record->time:'') }}" name="time" class="form-control" placeholder="Thời giam làm bài">
 					</div>
 				</div>
 				<!-- end rows -->
