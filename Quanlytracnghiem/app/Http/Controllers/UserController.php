@@ -37,7 +37,7 @@ class UserController extends Controller
 
     	//validate
     	$validator = Validator::make($request->all(), [
-    	 	'name' => 'bail|required|',
+    	 	'name' => 'bail|required|alpha',
     	 	'email' => 'bail|required|email|unique:users,email',//regex:/^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$
             'phone' => 'bail|required|regex:/(0)[0-9]{9,20}/|numeric',  
         ]);
@@ -73,7 +73,7 @@ class UserController extends Controller
 
     	//validate
     	$validator = Validator::make($request->all(), [
-    	 	'name' => 'bail|required|',
+    	 	'name' => 'bail|required|alpha',
     	 	'email' => 'bail|required|email|unique:users,email',//regex:/^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$
             'phone' => 'bail|required|regex:/(0)[0-9]{9,20}/|numeric', 
             'password' =>'bail|required|'

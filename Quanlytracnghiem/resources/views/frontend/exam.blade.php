@@ -123,7 +123,7 @@
                 </tr>
                 @foreach($threads as $questions)
                 <tr>
-                    <td>Question :  {{ $questions['content'] }} </td><td style="text-align: right;color: red">{{ $questions['point'] }} point</td>
+                    <td><h4 style="font-weight: bold;">Question :  {{ $questions['content'] }} </h4></td><td style="text-align: right;color: red">{{ $questions['point'] }} point</td>
                 </tr>
                 <input type="hidden" name="point[{{ $questions['questions_id'] }}]" value="{{$questions['point']}}">
                 <tr>
@@ -134,8 +134,11 @@
                     {{-- neu so cau tra loi dung chi co 1 thi dung radio --}}
                     @if($questions['count'] == 1)
                         @foreach($questions['answers'] as $answers)
-                <tr>
-                    <td><input type="radio" name="answer[{{ $answers->questions_id }}]" value="{{ $answers->id }}"> {{ $answers->answers }}</td>
+                <tr class="custom-control custom-radio">
+                    <td style="color:blue;">
+                        <input class="custom-control-input" type="radio" id="answers" name="answer[{{ $answers->questions_id }}]" value="{{ $answers->id }}">
+                        <label class="custom-control-label" for="answers">{{ $answers->answers }}</label>
+                    </td>
                 </tr>
                 <tr>
                     <td><br></td>
@@ -145,7 +148,7 @@
                     @elseif($questions['count'] > 1)
                         @foreach($questions['answers'] as $answers)
                 <tr>
-                    <td><input type="checkbox" name="answer[{{ $answers->questions_id }}][{{ $answers->id }}]" value="{{ $answers->id }}"> {{ $answers->answers }}</td>
+                    <td style="color:blue;"><input type="checkbox" name="answer[{{ $answers->questions_id }}][{{ $answers->id }}]" value="{{ $answers->id }}"> {{ $answers->answers }}</td>
                 </tr>
                 <tr>
                     <td><br></td>

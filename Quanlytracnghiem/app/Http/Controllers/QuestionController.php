@@ -54,7 +54,7 @@ class QuestionController extends Controller
                         ->withInput($request->input());
         }else{
 
-    	DB::table('questions')->where('id','=',$id)->update(['content'=>$content,'point'=>$point]);
+        DB::table('questions')->where('id','=',$id)->update(['content'=>$content,'point'=>$point]);
 
     	return redirect(url('admin/question'));
     	}
