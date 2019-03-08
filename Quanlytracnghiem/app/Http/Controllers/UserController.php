@@ -13,8 +13,6 @@ use Hash;
 
 class UserController extends Controller
 {   
-
-
     //list_user
     public function listUser(Request $request)
     {
