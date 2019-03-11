@@ -11,15 +11,13 @@
                 <table class="table table-bordered table-hover">
                     <tr>
                         <th>Question</th>
-                        <th>Answer</th>
                         <th style="width: 50px;">Point</th>
                         <th></th>
                     </tr>
                     @foreach($questions as $rows)
                         <tr>
                             <td>{{ $rows->content }}</td>
-                            <td>{{ $rows->answers }}</td>
-                            <td>@if(($rows->type) == 0) {{ $rows->point = "0" }} @else {{ $rows->point }} @endif </td>
+                            <td>{{ $rows->point }}</td>
                             <td style="text-align:center;width: 184px;">
                             <a href="{{ url('admin/question/answerAdd/'.$rows->id) }}" class="btn btn-sm btn-success">+Ans</a>&nbsp;
                             <a href="{{ url('admin/question/edit/'.$rows->id) }}" class="btn btn-sm btn-info">Edit</a>&nbsp;

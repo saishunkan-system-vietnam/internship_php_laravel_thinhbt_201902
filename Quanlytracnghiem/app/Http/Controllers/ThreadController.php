@@ -19,7 +19,7 @@ class ThreadController extends Controller
    public function listThread(Request $request)
    {
         $data['arr'] = DB::table('threads')->join('users','threads.user_id','=','users.id')
-                                           ->select('threads.id','threads.time','threads.total_point','users.name','threads.total_questions')
+                                           ->select('threads.id','threads.time','users.name','threads.total_questions')
                                            ->paginate(3);
         $data['details'] = DB::table('thread_details')->join('questions','thread_details.questions_id','=','questions.id')
                                                       ->select(DB::raw('group_concat(questions.content) as content'),'thread_details.threads_id',DB::raw('sum(questions.point) as point'))
@@ -39,13 +39,12 @@ class ThreadController extends Controller
     //do_edit
     public function doEdit(Request $request, $id){
     	$time = $request->get('time');
-        $total_point = $request->get('total_point');
+        
         $total_questions = $request->get('total_questions');
         $user_id = $request->get('user_id');
         
     	$validator = Validator::make($request->all(), [
             'time' => 'bail|required|numeric',
-           'total_point' => 'bail|required|numeric',
            'total_questions' =>'bail|required|numeric'
             
        ]);
@@ -56,7 +55,7 @@ class ThreadController extends Controller
                        ->withInput($request->input());
        }else{
         //update ban ghi 
-        $threads = DB::table('threads')->where('id','=',$id)->update(['time'=>$time,'total_point'=>$total_point,'total_questions'=>$total_questions,'user_id'=>$user_id]);
+        $threads = DB::table('threads')->where('id','=',$id)->update(['time'=>$time,'total_questions'=>$total_questions,'user_id'=>$user_id]);
         //neu thay doi so luong cau hoi thi se xoa bo cau hoi cu vao random lai
         $questions =  Question::inRandomOrder()->limit($total_questions)->get(['id']);
         if ($threads == 1 && $total_questions != $request->old('total_questions')) {
@@ -88,14 +87,12 @@ class ThreadController extends Controller
     public function doAdd(Request $request)
     {
     	$time = $request->get('time');
-        $total_point = $request->get('total_point');
         $total_questions = $request->get('total_questions');
     	$user_id = $request->get('user_id');
 
     	//validate
     	$validator = Validator::make($request->all(), [
     	 	'time' => 'bail|required|numeric',
-            'total_point' => 'bail|required|numeric',
             'total_questions' =>'bail|required|numeric'
 
         ]);
@@ -124,7 +121,6 @@ class ThreadController extends Controller
             DB::beginTransaction();
             $threadT = new Thread;
             $threadT->time = $time;
-            $threadT->total_point = $total_point;
             $threadT->total_questions = $total_questions;
             $threadT->user_id = $user_id;
             $threadT->created_at = now();

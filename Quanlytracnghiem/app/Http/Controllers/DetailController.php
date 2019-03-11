@@ -11,6 +11,7 @@ use App\Model\ThreadDetail;
 
 class DetailController extends Controller
 {
+    //list
     public function listDetail(Request $request)
     {
         $data['details'] = DB::table('thread_details')->join('questions','thread_details.questions_id','=','questions.id')
@@ -18,6 +19,29 @@ class DetailController extends Controller
                                                       ->orderBy('thread_details.id','desc')
                                                       ->paginate(10);
         return view("backend.listDetail",$data);
+    }
+
+    //add
+    public function add(Request $request, $id)
+    {
+        $data['arr'] = DB::table('threads')->where("id","=",$id)->first();
+        $data['questions'] = DB::table('questions')->get();
+        return view("backend.addEditDetail",$data);
+    }
+
+    //do add
+    public function doAdd(Request $request, $id)
+    {
+        $questions_id = $request->get('questions_id');
+
+        DB::table('thread_details')->where('id','=',$id)->insert([
+            'threads_id' => $request->route('id'),
+            'questions_id'=>$questions_id,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        return redirect(url('admin/thread'));;
     }
 
     //delete details

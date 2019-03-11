@@ -146,6 +146,12 @@ Route::group(array("prefix"=>"admin","middleware"=>"auth"), function(){
 	//detail
 	Route::get("detail","DetailController@listDetail");
 
+	//detail add
+	Route::get("detail/add/{id}","DetailController@add");
+
+	//detail do add
+	Route::post("detail/add/{id}","DetailController@doAdd");
+
 	//delete
 	Route::get("detail/delete/{id}","DetailController@delete");
 

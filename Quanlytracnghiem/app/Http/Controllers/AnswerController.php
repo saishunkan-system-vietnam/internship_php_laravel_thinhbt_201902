@@ -20,7 +20,6 @@ class AnswerController extends Controller
 
     public function answerEdit(Request $request, $id)
     {
-        
         $data['answers'] = DB::table('answers')->where('id','=',$id)->first();
         return view('backend.addEditAnswer',$data);
     }

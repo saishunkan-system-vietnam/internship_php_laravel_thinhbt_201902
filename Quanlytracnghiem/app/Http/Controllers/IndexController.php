@@ -52,7 +52,7 @@ class IndexController extends Controller
         
        	$data['threads'] = DB::table('threads')->join('thread_details','threads.id','=','thread_details.threads_id')
                                                ->join('questions','thread_details.questions_id','=','questions.id')
-                                               ->select('threads.id','thread_details.questions_id','threads.user_id','questions.content','questions.point','threads.time','threads.total_point')
+                                               ->select('threads.id','thread_details.questions_id','threads.user_id','questions.content','questions.point','threads.time')
                                                ->where('threads.user_id','=',$check)
                                                ->inRandomOrder()
                                                ->get()->toArray();
@@ -160,9 +160,14 @@ class IndexController extends Controller
         
         $data["arr"] = DB::table('results')->join('threads','results.threads_id','=','threads.id')
                                             ->where('users_id','=',$id)
-                                            ->select('results.users_id','results.threads_id','results.answers_id','results.users_point','threads.total_point')
+                                            ->select('results.users_id','results.threads_id','results.answers_id','results.users_point')
+                                            ->first();  
+        $data['details'] = DB::table('thread_details')->join('questions','thread_details.questions_id','=','questions.id')
+                                            ->join('threads','thread_details.threads_id','=','threads.id')
+                                            ->where('threads.user_id','=',$id)
+                                            ->select('thread_details.threads_id',DB::raw('sum(questions.point) as point'))
+                                            ->groupBy('thread_details.threads_id')
                                             ->first();
-
         return view('frontend.results',$data);
     }
 

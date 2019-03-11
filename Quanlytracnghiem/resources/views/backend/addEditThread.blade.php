@@ -31,14 +31,6 @@
 				<!-- end rows -->
 				<!-- rows -->
 				<div class="row" style="margin-top:5px;">
-					<div class="col-md-2">Total Point</div>
-					<div class="col-md-10">
-						<input type="text" id="total_point" value="{{ old('total_point') !='' ? old('total_point'):(isset($record->total_point)?$record->total_point:'') }}" name="total_point" class="form-control" placeholder="Tổng điểm">
-					</div>
-				</div>
-				<!-- end rows -->
-				<!-- rows -->
-				<div class="row" style="margin-top:5px;">
 					<div class="col-md-2">Total Question</div>
 					<div class="col-md-10">
 						<input type="text" id="total_questions" value="{{ old('total_questions') !='' ? old('total_questions'):(isset($record->total_questions)?$record->total_questions:'') }}" name="total_questions" class="form-control" placeholder="Tổng câu hỏi">

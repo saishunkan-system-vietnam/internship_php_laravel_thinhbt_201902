@@ -25,7 +25,7 @@
 					</td>
 				</tr>
                 @endforeach
-            </table>
+			</table>
             {{ $details->links() }}
 		</div>
 	</div>

@@ -40,26 +40,6 @@
 			<!-- end rows -->
 			<!-- rows -->
 			<div class="row" style="margin-top:5px;">
-				<div class="col-md-2">Answer</div>
-				<div class="col-md-10">
-                   <input type="text" name="answers" id="answers" value="{{ old('answers') !='' ?old('answers'):(isset($record->answers)?$record->answers:'') }}" placeholder="Câu trả lời" class="form-control">
-				</div>
-			</div>
-			<!-- end rows -->
-			<!-- rows -->
-			<div class="row" style="margin-top:5px;">
-				<div class="col-md-2">Type</div>
-				<div class="col-md-10">
-                   <select name="type" class="btn btn-default btn-block" >
-                   		<option value="0">False</option>
-                   		<option value="1">True</option>
-						
-					</select>
-				</div>
-			</div>
-			<!-- end rows -->
-			<!-- rows -->
-			<div class="row" style="margin-top:5px;">
 				<div class="col-md-2"></div>
 				<div class="col-md-10">
 					<input type="submit" value="Process" class="btn btn-primary">

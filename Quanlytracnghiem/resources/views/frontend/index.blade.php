@@ -25,6 +25,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/main.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style.css') }}">
 <!--===============================================================================================-->
+	<script src="{{ asset('frontend/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
 </head>
 <body>
 
@@ -37,7 +38,7 @@
 
 	
 <!--===============================================================================================-->
-	<script src="{{ asset('frontend/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+	{{-- <script src="{{ asset('frontend/vendor/jquery/jquery-3.2.1.min.js') }}"></script> --}}
 <!--===============================================================================================-->
 	<script src="{{ asset('frontend/vendor/animsition/js/animsition.min.js') }}"></script>
 <!--===============================================================================================-->

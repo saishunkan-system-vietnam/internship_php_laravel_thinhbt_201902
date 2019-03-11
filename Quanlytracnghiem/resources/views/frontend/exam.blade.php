@@ -30,10 +30,15 @@
 </style>
 
 <script>
+    
+
+    
     //-----------------------------------------------------------------------------------
     //disable sau khi start
     function disableButton(btn){
         document.getElementById(btn.id).disabled = true;
+        $(".answers").prop('disabled',false);
+        $('button').prop('disabled', false);
         alert("Bắt đầu tính giờ làm bài");
     }
 
@@ -82,9 +87,8 @@
 
     
 </script>
-<button onclick="topFunction()" id="scroll">
-        Top
-</button>
+<input type="button" class="btn btn-danger" value="Top" onclick="topFunction()" id="scroll">
+        
  <!-- content -->
 <div class="row" id="content">
     <div id="left" class="col-lg-3 col-md-3 col-sm-12 col-12">
@@ -134,10 +138,10 @@
                     {{-- neu so cau tra loi dung chi co 1 thi dung radio --}}
                     @if($questions['count'] == 1)
                         @foreach($questions['answers'] as $answers)
-                <tr class="custom-control custom-radio">
+                <tr>
                     <td style="color:blue;">
-                        <input class="custom-control-input" type="radio" id="answers" name="answer[{{ $answers->questions_id }}]" value="{{ $answers->id }}">
-                        <label class="custom-control-label" for="answers">{{ $answers->answers }}</label>
+                        <input type="radio" class="answers" name="answer[{{ $answers->questions_id }}]" value="{{ $answers->id }}">
+                        {{ $answers->answers }}
                     </td>
                 </tr>
                 <tr>
@@ -148,7 +152,7 @@
                     @elseif($questions['count'] > 1)
                         @foreach($questions['answers'] as $answers)
                 <tr>
-                    <td style="color:blue;"><input type="checkbox" name="answer[{{ $answers->questions_id }}][{{ $answers->id }}]" value="{{ $answers->id }}"> {{ $answers->answers }}</td>
+                    <td style="color:blue;"><input type="checkbox" class="answers" name="answer[{{ $answers->questions_id }}][{{ $answers->id }}]" value="{{ $answers->id }}"> {{ $answers->answers }}</td>
                 </tr>
                 <tr>
                     <td><br></td>
@@ -159,12 +163,12 @@
                 @endforeach
             </table>
             
-            <button type="button" onclick="access();" class="btn btn-danger btn-lg">
+            <button type="button" id="done" onclick="access();" class="btn btn-danger btn-lg">
                 Done
             </button>
 
-            <button type="reset" class="btn btn-primary btn-lg">
-                Reset Answer
+            <button type="reset" id="reset" class="btn btn-primary btn-lg">
+                Reset All
             </button>
         </form>
     </div>
@@ -221,6 +225,10 @@
 
 </script>
 
+<script>
+        $(".answers").prop('disabled',true);
+        $("button").prop('disabled',true);
+</script>
 
 <!-- footer -->
 <div class="row" id="footer" >
@@ -228,4 +236,6 @@
         <h1>End Quiz</h1>
     </div>
 </div>   
+
 @endsection
+

@@ -34,6 +34,10 @@
 		</div>
 	</div>
 
+
+	{{-- <div style="margin-bottom:5px;">
+		<a href="{{ url('admin/detail/add') }}" class="btn btn-success"> + Add question</a>
+	</div> --}}
 	<div class="panel panel-primary">
 		<div class="panel-heading">List Detail</div>
 		<div class="panel-body">
@@ -42,6 +46,7 @@
 					<th style="width: 100px;">Thread</th>
 					<th>Question</th>
 					<th style="width: 100px">Total Point</th>
+					<th style="width: 100px"></th>
 					{{-- <th style="width: 100px"></th> --}}
 				</tr>
 				@foreach($details as $rowsde)
@@ -49,6 +54,7 @@
 					<td>{{ $rowsde->threads_id }}</td>
 					<td>{{ $rowsde->content }}</td>
 					<td>{{ $rowsde->point }}</td>
+					<td><a href="{{ url('admin/detail/add/'.$rowsde->threads_id) }}" class="btn btn-success"> + Add question</a></td>
 					{{-- <td>
 						<a href="{{ url('admin/thread/delete/'.$rowsde->threads_id) }}" class="btn btn-sm btn-danger" onclick="return window.confirm('Are you sure?');">Delete</a>
 					</td> --}}

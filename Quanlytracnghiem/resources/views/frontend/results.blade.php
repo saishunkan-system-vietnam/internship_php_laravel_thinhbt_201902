@@ -20,7 +20,7 @@
                 <td>Thread Code</td><td>{{ $arr->threads_id }}</td>
             </tr>
             <tr>
-                <td>Total point</td><td>{{ $arr->total_point }}</td>
+                <td>Total point</td><td>{{ $details->point }}</td>
             </tr>
             
             <tr>

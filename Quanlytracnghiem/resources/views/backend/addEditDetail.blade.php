@@ -25,7 +25,7 @@
 			<div class="row" style="margin-top:5px;">
 				<div class="col-md-2">Thread</div>
 				<div class="col-md-10">
-					<input type="text" class="form-control" value="{{$arr->id}}" disabled>
+					<input type="text" class="form-control" value="{{ $arr->id }}" disabled>
 				</div>
 			</div>
 			<!-- end rows -->
@@ -35,7 +35,7 @@
 				<div class="col-md-10">
                    <select name="questions_id" class="btn btn-default btn-block" >
 						@foreach($questions as $rows)
-						<option value="{{$rows->id}}">{{$rows->content}}</option>
+						<option value="{{ $rows->id }}">{{ $rows->content }}</option>
 						@endforeach
 					</select>
 				</div>
@@ -52,34 +52,8 @@
 			</div>
 			<!-- end rows -->
 		</form>
-
-		
-	
 		</div>
 	</div>
 
-	<div class="panel panel-primary">
-			<div class="panel-heading">List Question</div>
-			<div class="panel-body">
-				<table class="table table-bordered table-hover">
-					<tr>
-						<th>Question</th>
-						<th>Answer</th>
-						<th>Type</th>
-						<th>Point</th>
-					</tr>
-					@foreach($answers as $rows)
-					<tr>
-						<td>{{$rows->content}}</td>
-						<td>{{$rows->answers}}</td>
-						<td>@if(($rows->type) == 1) {{ "True" }} @else {{ "False" }} @endif </td>
-						<td>{{$rows->point}}</td>
-					</tr>
-					@endforeach
-				</table>
-				{{$answers->links()}}
-				
-			</div>
-		</div>
 </div>
 @endsection

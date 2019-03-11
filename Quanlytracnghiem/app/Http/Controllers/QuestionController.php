@@ -15,10 +15,7 @@ class QuestionController extends Controller
     //list question
     public function listQuestion(Request $request)
     {
-    	$data['questions'] = DB::table('questions')->join('answers','questions.id','=','answers.questions_id')
-                                                   ->select(DB::raw('group_concat(answers.answers) as answers'),'questions.content','questions.id','questions.point','answers.type')
-                                                   ->groupBy('questions.id','questions.content','answers.type')
-                                                   ->orderBy('questions.id','desc')
+    	$data['questions'] = DB::table('questions')->orderBy('questions.id','desc')
                                                    ->paginate(10);
     	return view('backend.listQuestion',$data);
     }
@@ -26,9 +23,7 @@ class QuestionController extends Controller
     //question edit
     public function edit(Request $request,$id)
     {	
-    	$data['record'] = DB::table('answers')->join('questions','answers.questions_id','=','questions.id')
-                                              ->select('questions.content','answers.answers','questions.id','questions.point')
-                                              ->where('questions.id','=',$id)
+    	$data['record'] = DB::table('questions')->where('questions.id','=',$id)
                                               ->first();
     	return view('backend.addEditQuestion',$data);
     }
@@ -38,9 +33,7 @@ class QuestionController extends Controller
     {
     	$content = $request->get('content');
         $point = $request->get('point');
-        $answers = $request->get('answers');
-        $type = $request->get('type');
-
+        
     	//validate
     	$validator = Validator::make($request->all(), [
     	 	'content' => 'bail|required',
@@ -63,8 +56,7 @@ class QuestionController extends Controller
     // question add
     public function add(Request $request)
     {
-    	$data['answers'] = DB::table('answers')->join('questions','answers.questions_id','=','questions.id')->get();
-    	return view('backend.addEditQuestion',$data);
+    	return view('backend.addEditQuestion');
     }
 
     // question do add
@@ -72,14 +64,11 @@ class QuestionController extends Controller
     {
     	$content = $request->get('content');
         $point = $request->get('point');
-        $answers = $request->get('answers');
-        $type = $request->get('type');
 
     	//validate
     	$validator = Validator::make($request->all(), [
     	 	'content' => 'bail|required',
-            'point' => 'bail|required|numeric|max:5',
-            'answers' => 'bail|required',
+            'point' => 'bail|required|numeric|max:5'
 
         ]);
 
@@ -89,29 +78,36 @@ class QuestionController extends Controller
                         ->withInput();
         }
         //them cau hoi dong thoi co dap an
-        try {
-			DB::beginTransaction();
-			$question = new Question;
-			$question->content = $content;
-            $question->point = $point;
-			$question->created_at = now();
-			$question->updated_at = now();
+        $question = new Question;
+        $question->content = $content;
+        $question->point = $point;
+        $question->created_at = now();
+        $question->updated_at = now();
+        $question->save();
 
-			if($question->save()) {
-			 	$answer = new Answer();
-			 	$questionID = $question->id;
-				$answer->questions_id = $questionID;
-                $answer->answers = $answers;
-                $answer->type = $type;
-				$answer->created_at = now();
-				$answer->updated_at = now();
-				$answer->save();
-				}
-			DB::commit();
-		} catch (Exception $e) {
-			DB::rollBack();
-			return $e;
-		}
+        // try {
+		// 	DB::beginTransaction();
+		// 	$question = new Question;
+		// 	$question->content = $content;
+        //     $question->point = $point;
+		// 	$question->created_at = now();
+		// 	$question->updated_at = now();
+
+		// 	if($question->save()) {
+		// 	 	$answer = new Answer();
+		// 	 	$questionID = $question->id;
+		// 		$answer->questions_id = $questionID;
+        //         $answer->answers = $answers;
+        //         $answer->type = $type;
+		// 		$answer->created_at = now();
+		// 		$answer->updated_at = now();
+		// 		$answer->save();
+		// 		}
+		// 	DB::commit();
+		// } catch (Exception $e) {
+		// 	DB::rollBack();
+		// 	return $e;
+		// }
         return redirect(url('admin/question'));
     }
 

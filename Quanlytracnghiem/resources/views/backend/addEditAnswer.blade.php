@@ -21,6 +21,17 @@
 				</div>
 			</div>
 			<!-- end rows -->
+			@if(isset($arr->content))
+			<!-- rows -->
+			<div class="row" style="margin-top:5px;">
+				<div class="col-md-2">Question</div>
+				<div class="col-md-10">
+					<input type="text" disabled autofocus name="content" id="content" value="{{ old('content') != '' ?old('content'):(isset($arr->content)?$arr->content:'') }}" placeholder="Câu hỏi" class="form-control">
+					
+				</div>
+			</div>
+			<!-- end rows -->
+			@endif
 			<!-- rows -->
 			<div class="row" style="margin-top:5px;">
 				<div class="col-md-2">Answer</div>
