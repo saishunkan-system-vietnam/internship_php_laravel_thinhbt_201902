@@ -9,7 +9,9 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css') }}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/fontawesome/css/fontawesome.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/fontawesome/css/solid.min.css') }}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/vendor/animate/animate.css') }}">
 <!--===============================================================================================-->	
@@ -24,6 +26,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/util.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/main.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style.css') }}">
+<!--===============================================================================================-->
+	<script src="{{ asset('frontend/fontawesome/js/fontawesome.min.js') }}"></script>
 <!--===============================================================================================-->
 	<script src="{{ asset('frontend/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
 </head>

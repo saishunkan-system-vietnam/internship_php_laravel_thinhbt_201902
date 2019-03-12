@@ -3,7 +3,7 @@
 <div class="col-md-8 col-xs-offset-2">
 	
 	<div style="margin-bottom:5px;">
-		<a href="{{ url('admin/user/add') }}" class="btn btn-success"> + Add user</a>
+		<a href="{{ url('admin/user/add') }}" class="btn btn-success"><i class="fas fa-plus"></i> Add user</a>
 	</div>
 	
 	<div class="panel panel-primary">
@@ -23,8 +23,8 @@
 					<td>{{ $rows->email }}</td>
 					<td>{{ $rows->phone }}</td>
 					<td style="text-align:center;">
-						<a href="{{ url('admin/user/edit/'.$rows->id) }}" class="btn btn-sm btn-info">Edit</a>&nbsp;
-						<a href="{{ url('admin/user/delete/'.$rows->id) }}" class="btn btn-sm btn-danger" onclick="return window.confirm('Are you sure?');">Delete</a>
+						<a href="{{ url('admin/user/edit/'.$rows->id) }}"><i class="fas fa-pen-square fa-2x"></i></a>&nbsp;
+						<a href="{{ url('admin/user/delete/'.$rows->id) }}" onclick="return window.confirm('Are you sure?');"><i class="fas fa-trash fa-2x"></i></a>
 					</td>
 				</tr>
 				@endforeach

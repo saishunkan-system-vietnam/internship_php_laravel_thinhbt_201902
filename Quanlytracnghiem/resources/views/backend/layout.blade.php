@@ -5,7 +5,8 @@
   <meta charset="utf-8">
   <link rel="icon" type="image/png" href= "{{ asset('frontend/images/icons/favicon.ico') }}"/>
 	<link rel="stylesheet" type="text/css" href="{{ asset('backend/css/bootstrap.min.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/fontawesome.min.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('backend/fontawesome/css/fontawesome.min.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('backend/fontawesome/css/solid.min.css')}}">
   <!-- load thu vien jquery -->
   <script type="text/javascript" src="{{ asset('backend/ckeditor/ckeditor.js') }}"></script>
   <script type="text/javascript" src="{{ asset('backend/js/jquery-3.3.1.min.js') }}"></script>
@@ -26,7 +27,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Xin chào, {{ Auth::user()->name }}</a></li>
-            <li class="active"><a href="{{ url('') }}">Trang bài làm</a></li>
+            <li class="active"><a href="{{ url('index/exam') }}">Trang bài làm</a></li>
             <li class="active"><a href="{{ url('admin/thread') }}">Quản lý đề</a></li>
             <li class="active"><a href="{{ url('admin/detail') }}">Chi tiết đề</a></li>
             <li class="active"><a href="{{ url('admin/question') }}">Quản lý câu hỏi</a></li>

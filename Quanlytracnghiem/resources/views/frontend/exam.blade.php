@@ -37,8 +37,7 @@
     //disable sau khi start
     function disableButton(btn){
         document.getElementById(btn.id).disabled = true;
-        $(".answers").prop('disabled',false);
-        $('button').prop('disabled', false);
+        $("form").show();
         alert("Bắt đầu tính giờ làm bài");
     }
 
@@ -95,7 +94,7 @@
         <div class="card card-header bg-secondary text-light">Student infomation</div>
         <table class="table table-striped table-bordered">
             <tr>
-                <td>Name</td><td>{{Auth::user()->name}}</td>
+                <td>Name</td><td>{{Auth::user()->name}}</i></td>
             </tr>
             <tr>
                 <td>Email</td><td>{{Auth::user()->email}}</td>
@@ -125,9 +124,9 @@
                 <tr>
                 <td><br></td>
                 </tr>
-                @foreach($threads as $questions)
+                @foreach($threads as $index => $questions)
                 <tr>
-                    <td><h4 style="font-weight: bold;">Question :  {{ $questions['content'] }} </h4></td><td style="text-align: right;color: red">{{ $questions['point'] }} point</td>
+                    <td><h4 style="font-weight: bold;">Question {{ $index+1 }} :  {{ $questions['content'] }} </h4></td><td style="text-align: right;color: red">{{ $questions['point'] }} point</td>
                 </tr>
                 <input type="hidden" name="point[{{ $questions['questions_id'] }}]" value="{{$questions['point']}}">
                 <tr>
@@ -139,9 +138,9 @@
                     @if($questions['count'] == 1)
                         @foreach($questions['answers'] as $answers)
                 <tr>
-                    <td style="color:blue;">
-                        <input type="radio" class="answers" name="answer[{{ $answers->questions_id }}]" value="{{ $answers->id }}">
-                        {{ $answers->answers }}
+                    <td style="color:blue;" class="custom-control custom-radio">
+                        <input type="radio" class="answers custom-control-input" id="customRadio" name="answer[{{ $answers->questions_id }}]" value="{{ $answers->id }}">
+                        <label class="custom-control-label" for="customRadio">{{ $answers->answers }}</label>
                     </td>
                 </tr>
                 <tr>
@@ -152,7 +151,10 @@
                     @elseif($questions['count'] > 1)
                         @foreach($questions['answers'] as $answers)
                 <tr>
-                    <td style="color:blue;"><input type="checkbox" class="answers" name="answer[{{ $answers->questions_id }}][{{ $answers->id }}]" value="{{ $answers->id }}"> {{ $answers->answers }}</td>
+                    <td style="color:blue;" class="custom-control custom-checkbox">
+                        <input type="checkbox" class="answers custom-control-input" id="customCheck" name="answer[{{ $answers->questions_id }}][{{ $answers->id }}]" value="{{ $answers->id }}"> 
+                        <label class="custom-control-label" for="customCheck">{{ $answers->answers }}</label>
+                    </td>
                 </tr>
                 <tr>
                     <td><br></td>
@@ -226,8 +228,7 @@
 </script>
 
 <script>
-        $(".answers").prop('disabled',true);
-        $("button").prop('disabled',true);
+        $("form").hide();
 </script>
 
 <!-- footer -->

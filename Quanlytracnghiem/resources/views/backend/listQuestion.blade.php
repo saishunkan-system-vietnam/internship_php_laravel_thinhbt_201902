@@ -2,7 +2,7 @@
 @section("do-du-lieu")
     <div class="col-md-8 col-xs-offset-2">
     <div style="margin-bottom:5px;">
-		<a href="{{ url('admin/question/add') }}" class="btn btn-success"> + Add question</a>
+		<a href="{{ url('admin/question/add') }}" class="btn btn-success"><i class="fas fa-plus"></i> Add question</a>
 	</div>
 
         <div class="panel panel-primary">
@@ -19,9 +19,9 @@
                             <td>{{ $rows->content }}</td>
                             <td>{{ $rows->point }}</td>
                             <td style="text-align:center;width: 184px;">
-                            <a href="{{ url('admin/question/answerAdd/'.$rows->id) }}" class="btn btn-sm btn-success">+Ans</a>&nbsp;
-                            <a href="{{ url('admin/question/edit/'.$rows->id) }}" class="btn btn-sm btn-info">Edit</a>&nbsp;
-                            <a href="{{ url('admin/question/delete/'.$rows->id) }}" onclick="return window.confirm('Are you sure?'); " class="btn btn-sm btn-danger">Delete</a>
+                            <a href="{{ url('admin/question/answerAdd/'.$rows->id) }}"><i class="fas fa-plus fa-2x"></i></a>&nbsp;
+                            <a href="{{ url('admin/question/edit/'.$rows->id) }}"><i class="fas fa-pen-square fa-2x"></i></a>&nbsp;
+                            <a href="{{ url('admin/question/delete/'.$rows->id) }}" onclick="return window.confirm('Are you sure?');"><i class="fas fa-trash fa-2x"></i></a>
 
                             </td>
                         </tr>

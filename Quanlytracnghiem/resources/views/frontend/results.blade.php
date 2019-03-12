@@ -22,11 +22,9 @@
             <tr>
                 <td>Total point</td><td>{{ $details->point }}</td>
             </tr>
-            
             <tr>
                 <td>Your point</td><td>{{ $arr->users_point }}</td>
             </tr>
-            
         </table>
         <a href="{{ url('index/signout') }}" class="btn btn-lg btn-danger">Logout</a>
     </div>

@@ -22,8 +22,8 @@
                             <td>{{ $rows->answers }}</td>
                             <td>@if(($rows->type) == 1) {{ "True" }} @else {{ "False" }} @endif </td>
                             <td style="text-align: center;width: 150px;">
-                                <a href="{{ url('admin/answer/answerEdit/'.$rows->id) }}" class="btn btn-sm btn-info">Edit</a>
-                                <a href="{{ url('admin/answer/delete/'.$rows->id) }}" class="btn btn-sm btn-danger" onclick="return window.confirm('Are you sure?');">Delete</a>
+                                <a href="{{ url('admin/answer/answerEdit/'.$rows->id) }}" ><i class="fas fa-pen-square fa-2x"></i></a>
+                                <a href="{{ url('admin/answer/delete/'.$rows->id) }}" onclick="return window.confirm('Are you sure?');"><i class="fas fa-trash fa-2x"></i></a>
                             </td>
                         </tr>
                     @endforeach

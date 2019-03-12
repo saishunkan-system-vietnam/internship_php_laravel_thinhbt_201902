@@ -22,7 +22,7 @@
 					<td>{{ $rows->threads_id }}</td>
 					<td>{{ $rows->answers_id }}</td>
 					<td>{{ $rows->users_point }}</td>
-					<td style="width: 80px;"><a href="{{ url('admin/result/delete/'.$rows->id) }}" onclick="return window.confirm('Are you sure?'); " class="btn btn-sm btn-danger">Delete</a></td>
+					<td style="text-align: center;"><a href="{{ url('admin/result/delete/'.$rows->id) }}" onclick="return window.confirm('Are you sure?');"><i class="fas fa-trash fa-2x"></i></a></td>
 				</tr>
 				@endforeach
 			</table>

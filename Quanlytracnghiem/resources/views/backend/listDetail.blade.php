@@ -20,8 +20,8 @@
 					<td>{{ $rows->threads_id }}</td>
                     <td>{{ $rows->content }}</td>
                     <td>{{ $rows->point }}</td>
-					<td>
-						<a href="{{ url('admin/detail/delete/'. $rows->id) }}" class="btn btn-sm btn-danger" onclick="return window.confirm('Are you sure?');">Delete</a>
+					<td style="text-align: center">
+						<a href="{{ url('admin/detail/delete/'. $rows->id) }}"onclick="return window.confirm('Are you sure?');"><i class="fas fa-trash fa-2x"></i></a>
 					</td>
 				</tr>
                 @endforeach
