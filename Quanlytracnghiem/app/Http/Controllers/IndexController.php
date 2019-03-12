@@ -147,7 +147,6 @@ class IndexController extends Controller
             $finalAns = 0;
         }
         
-        
         //luu vao bang results
         $results = new Result;
         $results->users_id = $id;
@@ -158,9 +157,6 @@ class IndexController extends Controller
         $results->updated_at = now();
         $results->save();
         
-        
-
-
         $data["arr"] = DB::table('results')->join('threads','results.threads_id','=','threads.id')
                                             ->join('answers','results.answers_id','=','answers.id')
                                             ->where('users_id','=',$id)

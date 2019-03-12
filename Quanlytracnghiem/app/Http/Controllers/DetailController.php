@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\MessageBag;
 
 use App\Model\ThreadDetail;
 
@@ -34,16 +35,23 @@ class DetailController extends Controller
     {
         $questions_id = $request->get('questions_id');
         $total_questions = DB::table('threads')->where("id","=",$id)->get()->toArray();
+
+        if (isset($questions_id)) {
+            $errors = new MessageBag(['errorQuestion' => 'Question is already exists!!!']);
+                    return redirect()->back()->withInput()->withErrors($errors);
+        }else {
+            DB::table('thread_details')->where('id','=',$id)->insert([
+                'threads_id' => $request->route('id'),
+                'questions_id'=>$questions_id,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+            
+            DB::table('threads')->where("id","=",$id)->update(['total_questions'=>$total_questions[0]->total_questions + 1]);
+            return redirect(url('admin/thread'));
+        }
+
         
-        DB::table('thread_details')->where('id','=',$id)->insert([
-            'threads_id' => $request->route('id'),
-            'questions_id'=>$questions_id,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        
-        DB::table('threads')->where("id","=",$id)->update(['total_questions'=>$total_questions[0]->total_questions + 1]);
-        return redirect(url('admin/thread'));
     }
 
     //delete details

@@ -25,7 +25,7 @@
 			<div class="row" style="margin-top:5px;">
 				<div class="col-md-2">Name</div>
 				<div class="col-md-10">
-					<input type="text" autofocus id="name" value="{{ old('name') != '' ? old('name'):'' }}" name="name" class="form-control" placeholder="Nguyen Van A" >
+					<input type="text" autofocus id="name" value="{{ old('name') != '' ? old('name'):(isset($record->name) ? $record->name :'') }}" name="name" class="form-control" placeholder="Nguyen Van A" >
 				</div>
 			</div>
 			<!-- end rows -->
@@ -33,7 +33,7 @@
 			<div class="row" style="margin-top:5px;">
 				<div class="col-md-2">Email</div>
 				<div class="col-md-10">
-                   <input type="text" id="email" value="{{ old('email') != '' ? old('email'):'' }}" name="email" class="form-control" placeholder="test@mail.com">
+                   <input type="text" id="email" value="{{ old('email') != '' ? old('email'):(isset($record->email) ? $record->email :'') }}" name="email" class="form-control" placeholder="test@mail.com">
 				</div>
 			</div>
 			<!-- end rows -->
@@ -41,7 +41,7 @@
 			<div class="row" style="margin-top:5px;">
 				<div class="col-md-2">Phone</div>
 				<div class="col-md-10">
-					<input type="tel" id="phone" value="{{ old('phone') != '' ? old('phone'):'' }}" name="phone" class="form-control">
+					<input type="tel" id="phone" value="{{ old('phone') != '' ? old('phone'):(isset($record->phone) ? $record->phone :'') }}" name="phone" placeholder="0123456789" class="form-control">
 				</div>
 			</div>
 			<!-- end rows -->
@@ -49,7 +49,7 @@
 			<div class="row" style="margin-top:5px;">
 				<div class="col-md-2">Password</div>
 				<div class="col-md-10">
-					<input type="password" name="password" class="form-control" @if(isset($record->password)) placeholder="Không đổi password thì không nhập" @else @endif>
+					<input type="password" name="password" class="form-control" @if(isset($record->password)) placeholder="Không đổi password thì không nhập" @else @endif placeholder="***********">
 				</div>
 			</div>
 			<!-- end rows -->

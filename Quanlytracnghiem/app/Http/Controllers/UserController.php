@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
@@ -37,12 +36,12 @@ class UserController extends Controller
 
     	//validate
     	$validator = Validator::make($request->all(), [
-    	 	'name' => 'bail|required|alpha',
+    	 	'name' => 'bail|required|regex:/^[a-zA-Z ]*$/',
     	 	'email' => 'bail|required|email|unique:users,email',//regex:/^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$
             'phone' => 'bail|required|regex:/(0)[0-9]{9,20}/|numeric',  
         ]);
     	
-    	 if ($validator->fails()) {
+    	if ($validator->fails()) {
             return redirect('admin/user/edit/'.$id)
                         ->withErrors($validator)
                         ->withInput($request->input());
@@ -73,7 +72,7 @@ class UserController extends Controller
 
     	//validate
     	$validator = Validator::make($request->all(), [
-    	 	'name' => 'bail|required|alpha',
+    	 	'name' => 'bail|required|regex:/^[a-zA-Z ]*$/',
     	 	'email' => 'bail|required|email|unique:users,email',//regex:/^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$
             'phone' => 'bail|required|regex:/(0)[0-9]{9,20}/|numeric', 
             'password' =>'bail|required|'
@@ -86,7 +85,6 @@ class UserController extends Controller
         }
 
 		User::insert(array("name"=>$name,"email"=>$email,"phone"=>$phone,"password"=>$password,"type"=>$type));
-
     	return redirect(url('admin/user'));
     }
 
