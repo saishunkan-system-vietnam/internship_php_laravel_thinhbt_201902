@@ -23,7 +23,6 @@
 					<td>{{ $rows->total_questions }}</td>
 					<td>{{ $rows->name }}</td>
 					<td style="text-align:center;">
-						{{-- <a href="{{ url('admin/thread/detailAdd/'.$rows->id) }}" class="btn btn-sm btn-success">+ Detail</a> --}}
 						<a href="{{ url('admin/thread/edit/'.$rows->id) }}"><i class="fas fa-pen-square fa-2x"></i></a>&nbsp;
 						<a href="{{ url('admin/thread/delete/'.$rows->id) }}" onclick="return window.confirm('Are you sure?');"><i class="fas fa-trash fa-2x"></i></a>
 					</td>
@@ -35,9 +34,7 @@
 	</div>
 
 
-	{{-- <div style="margin-bottom:5px;">
-		<a href="{{ url('admin/detail/add') }}" class="btn btn-success"> + Add question</a>
-	</div> --}}
+	
 	<div class="panel panel-primary">
 		<div class="panel-heading">List Detail</div>
 		<div class="panel-body">
@@ -47,7 +44,6 @@
 					<th>Question</th>
 					<th style="width: 100px">Total Point</th>
 					<th></th>
-					{{-- <th style="width: 100px"></th> --}}
 				</tr>
 				@foreach($details as $rowsde)
 				<tr>
@@ -55,9 +51,7 @@
 					<td>{{ $rowsde->content }}</td>
 					<td>{{ $rowsde->point }}</td>
 					<td><a href="{{ url('admin/detail/add/'.$rowsde->threads_id) }}"><i class="fas fa-plus fa-2x"></a></td>
-					{{-- <td>
-						<a href="{{ url('admin/thread/delete/'.$rowsde->threads_id) }}" class="btn btn-sm btn-danger" onclick="return window.confirm('Are you sure?');">Delete</a>
-					</td> --}}
+					
 				</tr>
 				@endforeach
 			</table>

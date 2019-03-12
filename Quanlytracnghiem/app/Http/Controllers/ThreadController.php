@@ -39,7 +39,6 @@ class ThreadController extends Controller
     //do_edit
     public function doEdit(Request $request, $id){
     	$time = $request->get('time');
-        
         $total_questions = $request->get('total_questions');
         $user_id = $request->get('user_id');
         

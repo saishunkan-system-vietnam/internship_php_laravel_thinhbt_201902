@@ -17,6 +17,8 @@
 
 Auth::routes();
 
+
+
 Route::get("admin", function(){
 	return redirect(url('login'));
 });

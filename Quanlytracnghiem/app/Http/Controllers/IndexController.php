@@ -158,16 +158,27 @@ class IndexController extends Controller
         $results->updated_at = now();
         $results->save();
         
+        
+
+
         $data["arr"] = DB::table('results')->join('threads','results.threads_id','=','threads.id')
+                                            ->join('answers','results.answers_id','=','answers.id')
                                             ->where('users_id','=',$id)
                                             ->select('results.users_id','results.threads_id','results.answers_id','results.users_point')
-                                            ->first();  
+                                            ->first();
         $data['details'] = DB::table('thread_details')->join('questions','thread_details.questions_id','=','questions.id')
                                             ->join('threads','thread_details.threads_id','=','threads.id')
                                             ->where('threads.user_id','=',$id)
                                             ->select('thread_details.threads_id',DB::raw('sum(questions.point) as point'))
                                             ->groupBy('thread_details.threads_id')
-                                            ->first();
+                                            ->first();  
+                                            
+        $data['answers'] = DB::table('answers')->join('thread_details','answers.questions_id','=','thread_details.questions_id')
+                                            ->join('questions','thread_details.questions_id','=','questions.id')
+                                            ->select('answers.type','answers.answers','thread_details.threads_id','answers.questions_id','questions.content','answers.id')
+                                            ->where('thread_details.threads_id','=',$threads[0]->id)
+                                            ->where('answers.type','=',1)
+                                            ->get();
         return view('frontend.results',$data);
     }
 

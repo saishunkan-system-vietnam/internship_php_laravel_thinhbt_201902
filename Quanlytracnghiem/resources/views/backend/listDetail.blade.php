@@ -1,9 +1,6 @@
 @extends("backend.layout")
 @section("do-du-lieu")
 <div class="col-md-8 col-xs-offset-2">
-	{{-- <div style="margin-bottom:5px;">
-		<a href="{{ url('admin/user/add') }}" class="btn btn-success"> + Add user</a>
-	</div>  --}}
 	
 	<div class="panel panel-primary">
 		<div class="panel-heading">List Detail</div>

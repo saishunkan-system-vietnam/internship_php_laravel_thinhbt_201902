@@ -33,15 +33,17 @@ class DetailController extends Controller
     public function doAdd(Request $request, $id)
     {
         $questions_id = $request->get('questions_id');
-
+        $total_questions = DB::table('threads')->where("id","=",$id)->get()->toArray();
+        
         DB::table('thread_details')->where('id','=',$id)->insert([
             'threads_id' => $request->route('id'),
             'questions_id'=>$questions_id,
             'created_at' => now(),
             'updated_at' => now()
         ]);
-
-        return redirect(url('admin/thread'));;
+        
+        DB::table('threads')->where("id","=",$id)->update(['total_questions'=>$total_questions[0]->total_questions + 1]);
+        return redirect(url('admin/thread'));
     }
 
     //delete details

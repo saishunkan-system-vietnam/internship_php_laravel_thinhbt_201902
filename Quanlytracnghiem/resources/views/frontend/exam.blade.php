@@ -139,8 +139,8 @@
                         @foreach($questions['answers'] as $answers)
                 <tr>
                     <td style="color:blue;" class="custom-control custom-radio">
-                        <input type="radio" class="answers custom-control-input" id="customRadio" name="answer[{{ $answers->questions_id }}]" value="{{ $answers->id }}">
-                        <label class="custom-control-label" for="customRadio">{{ $answers->answers }}</label>
+                        <input type="radio" class="answers custom-control-input" id="{{ $answers->id }}" name="answer[{{ $answers->questions_id }}]" value="{{ $answers->id }}">
+                        <label class="custom-control-label" for="{{ $answers->id }}">{{ $answers->answers }}</label>
                     </td>
                 </tr>
                 <tr>
@@ -152,8 +152,8 @@
                         @foreach($questions['answers'] as $answers)
                 <tr>
                     <td style="color:blue;" class="custom-control custom-checkbox">
-                        <input type="checkbox" class="answers custom-control-input" id="customCheck" name="answer[{{ $answers->questions_id }}][{{ $answers->id }}]" value="{{ $answers->id }}"> 
-                        <label class="custom-control-label" for="customCheck">{{ $answers->answers }}</label>
+                        <input type="checkbox" class="answers custom-control-input" id="{{ $answers->id }}" name="answer[{{ $answers->questions_id }}][{{ $answers->id }}]" value="{{ $answers->id }}"> 
+                        <label class="custom-control-label" for="{{ $answers->id }}">{{ $answers->answers }}</label>
                     </td>
                 </tr>
                 <tr>
