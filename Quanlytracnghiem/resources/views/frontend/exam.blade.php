@@ -38,6 +38,23 @@
         document.getElementById(btn.id).disabled = true;
         $("form").show();
         alert("Bắt đầu tính giờ làm bài");
+        document.onkeydown = function() 
+        {
+            switch (event.keyCode) 
+            {
+                case 116 : //F5 button
+                    return access();
+                case 82 : //R button
+                    if (event.ctrlKey) 
+                    {
+                        return access();
+                    }
+            }
+        }
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
     }
 
     //-----------------------------------------------------------------------------------
@@ -69,19 +86,7 @@
 
     //-----------------------------------------------------------------------------------
     //khong cho reload, neu reload se submit form
-    document.onkeydown = function() 
-    {
-        switch (event.keyCode) 
-        {
-            case 116 : //F5 button
-                return access();
-            case 82 : //R button
-                if (event.ctrlKey) 
-                {
-                    return access();
-                }
-        }
-    }
+    
 
     
 </script>
@@ -93,7 +98,7 @@
         <div class="card card-header bg-secondary text-light">Student infomation</div>
         <table class="table table-striped table-bordered">
             <tr>
-                <td>Name</td><td>{{Auth::user()->name}}</i></td>
+            <td>Name</td><td>{{Auth::user()->name}}  @if(Auth::user()->type == 1)  <a href="{{ url('admin/user') }}"><i class="fas fa-user-check"></i></a>  @endif</td>
             </tr>
             <tr>
                 <td>Email</td><td>{{Auth::user()->email}}</td>
@@ -114,7 +119,7 @@
 
 <!-- right -->
     <div id="right" class="col-lg-9 col-md-9 col-sm-12 col-12">
-        <form id="examForm" action="{{ url('index/results') }}">
+        <form id="examForm" method="POST" action="{{ url('index/results') }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="card card-header bg-info text-light">Thread</div>
             <br>

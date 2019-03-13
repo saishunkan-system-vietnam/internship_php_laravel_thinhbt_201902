@@ -11,6 +11,12 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
+                        @if ($errors->has('errAd'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('errAd') }}</strong>
+                            </span>
+					    @endif
+
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 

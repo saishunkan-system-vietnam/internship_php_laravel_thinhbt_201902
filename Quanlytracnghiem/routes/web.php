@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get("admin", function(){
 	return redirect(url('login'));
-})->middleware('auth');
+})->middleware('checkadmin');
 
 Route::get("home", function(){
     return redirect(url('admin/user'));
@@ -185,8 +185,11 @@ Route::group(['prefix'=>'index'],function(){
 	//exam
 	Route::get("exam","IndexController@listExam");
 
+
 	//results
 	Route::get("results","IndexController@getResult");
+	//
+	Route::post("results","IndexController@getResult");
 
 	//logout
 	Route::get("signout","IndexController@getLogout");

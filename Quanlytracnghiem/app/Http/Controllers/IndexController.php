@@ -32,7 +32,7 @@ class IndexController extends Controller
     	 	'password' => 'bail|required'
         ]);
 
-    	if ($validator->fails()) {
+    	if ($validator->fails()) {die('a');
     		return redirect('index/signin')
     						->withErrors($validator)
     						->withInput();
@@ -51,7 +51,6 @@ class IndexController extends Controller
     public function listExam(Request $request)
     {   
         $check = Auth::id();
-        
        	$data['threads'] = DB::table('threads')->join('thread_details','threads.id','=','thread_details.threads_id')
                                                ->join('questions','thread_details.questions_id','=','questions.id')
                                                ->select('threads.id','thread_details.questions_id','threads.user_id','questions.content','questions.point','threads.time')
@@ -77,13 +76,12 @@ class IndexController extends Controller
         
         //tinh gio
         $data['time'] = DB::table('threads')->where("user_id","=",$check)->first();
-
         return view('frontend.exam',$data);
     }
     
     public function getResult(Request $request)
     {	
-        $answers = $request->all();
+        $answers = $request->input();
         $id = Auth::id();
         $threads = DB::table('threads')->where("user_id","=",$id)->get(['id'])->toArray();
         $check = DB::table('answers')->join('questions','answers.questions_id','=','questions.id')
@@ -159,6 +157,19 @@ class IndexController extends Controller
         $results->updated_at = now();
         $results->save();
         
+        $results = DB::table('results')->where('users_id','=',$id)->update(['answers_id' => $finalAns,'users_point' => $total ]);
+        if ($results == 1 || $finalAns == 0) {
+            Result::where('users_id','=',$id)->delete();
+            Result::insert([
+                'users_id' => $id,
+                'answers_id' => $finalAns,
+                'threads_id' => $threads[0]->id,
+                'users_point' => $total,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+
         $data["arr"] = DB::table('results')->join('threads','results.threads_id','=','threads.id')
                                             ->join('answers','results.answers_id','=','answers.id')
                                             ->where('users_id','=',$id)
@@ -180,7 +191,7 @@ class IndexController extends Controller
         return view('frontend.results',$data);
     }
 
-
+    //log out
     public function getLogout()
     {	
     	Auth::logout();

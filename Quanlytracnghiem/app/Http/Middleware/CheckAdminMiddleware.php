@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
+use Illuminate\Support\MessageBag;
 
 class CheckAdminMiddleware
 {
@@ -14,14 +15,15 @@ class CheckAdminMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $guard = null)
     {
         //return $next($request);
 
-        if(Auth::check()&&Auth::user()->type==1){
+        if(Auth::check() && Auth::user()->type == 1){
             return $next($request);
         }else{
-            return redirect('/');
+            $errors = new MessageBag (['errorLogin' => 'Only for Admin !!!' ]);
+            return redirect('/')->withErrors($errors);
         }
     }
 }

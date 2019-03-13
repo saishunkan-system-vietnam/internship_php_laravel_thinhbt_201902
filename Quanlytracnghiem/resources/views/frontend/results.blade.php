@@ -38,6 +38,15 @@
                 @endif</td>
             </tr>
         </table>
+        <a href="{{ url('index/exam') }}" class="btn btn-lg btn-info">Try Again</a>
         <a href="{{ url('index/signout') }}" class="btn btn-lg btn-danger">Logout</a>
     </div>
+
+    <!-- footer -->
+<div class="row" id="footer" >
+        <div id="title" class="col-lg-12 col-md-12 col-sm-12 col-12" >
+            <h1>End Quiz</h1>
+        </div>
+    </div>   
+    
 @endsection
