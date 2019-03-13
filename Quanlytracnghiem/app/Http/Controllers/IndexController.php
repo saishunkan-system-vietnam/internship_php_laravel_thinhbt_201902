@@ -17,6 +17,8 @@ use App\Model\Thread;
 
 class IndexController extends Controller
 {
+    
+
     //
     public function getSignin(Request $request)
     {

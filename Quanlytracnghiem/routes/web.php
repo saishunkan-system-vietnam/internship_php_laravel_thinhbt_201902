@@ -17,11 +17,9 @@
 
 Auth::routes();
 
-
-
 Route::get("admin", function(){
 	return redirect(url('login'));
-});
+})->middleware('auth');
 
 Route::get("home", function(){
     return redirect(url('admin/user'));
@@ -32,6 +30,8 @@ Route::get("logout",function(){
 	Auth::logout();
 	return redirect(url("login"));	
 });
+
+// Route::get("login", "Auth\LoginController@login")->middleware('auth');
 
 //Group admin
 Route::group(array("prefix"=>"admin","middleware"=>"auth"), function(){
