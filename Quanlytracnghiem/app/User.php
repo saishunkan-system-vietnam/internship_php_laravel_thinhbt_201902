@@ -31,7 +31,6 @@ class User extends Authenticatable
     public function save(array $options = array()) {
         if(isset($this->remember_token))
             unset($this->remember_token);
-    
         return parent::save($options);
     }
 

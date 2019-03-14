@@ -11,10 +11,10 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        @if ($errors->has('errAd'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('errAd') }}</strong>
-                            </span>
+                        @if ($errors->has('errorLogin'))
+                            <div class="alert alert-danger">
+                                {{ $errors->first('errorLogin') }}
+                            </div>
 					    @endif
 
                         <div class="form-group row">

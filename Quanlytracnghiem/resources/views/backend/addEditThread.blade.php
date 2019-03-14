@@ -43,7 +43,7 @@
 					<div class="col-md-10">
 						<select name="user_id" class="btn btn-default btn-block" >
 							@foreach($arr as $rows)
-								<option value="{{$rows->id}}" @if(isset($record->users_id) == isset($rows->id)) selected="selected" @endif >{{$rows->name}}</option>
+								<option value="{{$rows->id}}" @if(isset($record->users_id) == isset($rows->id))) selected="selected" @endif >{{ $rows->name }}</option>
 							@endforeach
 						</select>
 					</div>

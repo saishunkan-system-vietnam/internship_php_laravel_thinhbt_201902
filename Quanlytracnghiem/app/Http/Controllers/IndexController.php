@@ -32,7 +32,7 @@ class IndexController extends Controller
     	 	'password' => 'bail|required'
         ]);
 
-    	if ($validator->fails()) {die('a');
+    	if ($validator->fails()) {
     		return redirect('index/signin')
     						->withErrors($validator)
     						->withInput();
