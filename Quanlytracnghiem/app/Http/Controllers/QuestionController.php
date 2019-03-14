@@ -36,7 +36,7 @@ class QuestionController extends Controller
         
     	//validate
     	$validator = Validator::make($request->all(), [
-    	 	'content' => 'bail|required',
+    	 	'content' => 'bail|required|unique:questions,content',
             'point' => 'bail|required|numeric|max:5'
     	 	
         ]);
@@ -67,16 +67,19 @@ class QuestionController extends Controller
 
     	//validate
     	$validator = Validator::make($request->all(), [
-    	 	'content' => 'bail|required',
+    	 	'content' => 'bail|required|unique:questions,content',
             'point' => 'bail|required|numeric|max:5'
 
         ]);
+        
 
     	 if ($validator->fails()) {
             return redirect('admin/question/add')
                         ->withErrors($validator)
                         ->withInput();
         }
+
+
         //them cau hoi dong thoi co dap an
         $question = new Question;
         $question->content = $content;

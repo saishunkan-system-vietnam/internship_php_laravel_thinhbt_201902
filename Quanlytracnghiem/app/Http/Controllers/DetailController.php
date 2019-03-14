@@ -35,10 +35,10 @@ class DetailController extends Controller
     {
         $questions_id = $request->get('questions_id');
         $total_questions = DB::table('threads')->where("id","=",$id)->get()->toArray();
-
+        
         if (isset($questions_id)) {
             $errors = new MessageBag(['errorQuestion' => 'Question is already exists!!!']);
-                    return redirect()->back()->withInput()->withErrors($errors);
+            return redirect()->back()->withInput()->withErrors($errors);
         }else {
             DB::table('thread_details')->where('id','=',$id)->insert([
                 'threads_id' => $request->route('id'),

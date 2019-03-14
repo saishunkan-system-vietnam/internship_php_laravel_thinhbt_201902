@@ -23,8 +23,7 @@ body{
 }	
 
 #left div{
-	text-align: center;
-	text-transform: uppercase;
+	text-align: left;
 	font-weight: bold;
 }
 

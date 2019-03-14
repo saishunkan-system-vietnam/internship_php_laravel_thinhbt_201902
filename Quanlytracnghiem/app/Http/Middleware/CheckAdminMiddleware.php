@@ -24,7 +24,7 @@ class CheckAdminMiddleware
         }else{
             Auth::logout();
             Session::flush();
-            $errors = new MessageBag (['errorLogin' => 'Only for Admin !!!' ]);
+            $errors = new MessageBag (['errorLogin' => 'Error: Only Admin can log in this page!!!' ]);
             return redirect()->back()->withInput()->withErrors($errors);
             //die('ass');
         }

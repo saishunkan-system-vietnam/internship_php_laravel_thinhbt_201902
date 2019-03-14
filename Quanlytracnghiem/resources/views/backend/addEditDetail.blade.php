@@ -46,7 +46,6 @@
 				<div class="col-md-2"></div>
 				<div class="col-md-10">
 					<input type="submit" value="Process" class="btn btn-primary">
-					<input type="reset" value="Clear" class="btn btn-danger">
 					<a href="{{ url('admin/thread')}}" class="btn btn-warning">Cancel</a>
 				</div>
 			</div>

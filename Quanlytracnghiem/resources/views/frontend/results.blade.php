@@ -23,19 +23,27 @@
                 <td >Total point</td><td>{{ $details->point }}</td>
             </tr>
             <tr>
-                <td >Your point</td><td>@if ($arr == null)
-                    {{ 0 }} @else {{ $arr->users_point }}
-                @endif</td>
-            </tr>
-            <tr>
                 <td >Right answer</td><td>@foreach ($answers as $item)
-                {{ $item->content }} : <p style="color: red;">{{ $item->id}} -> {{ $item->answers }} </p> 
+                {{ $item->content }} : <p style="color: red;">{{ $item->answers }} </p> 
                 @endforeach</td>
             </tr>
             <tr>
-                <td>Your answer</td><td>@if ($arr == null)
-                    {{ 0 }} @else {{ $arr->answers_id }}
-                @endif</td>
+                <td>Your answer</td><td>
+                    @if ($results == null)
+                    {{ 0 }}
+                    @else 
+                        @foreach ($stdAns as $item)
+                            <div style="text-transform: none">{{ $item }}</div>
+                        @endforeach
+                @endif
+                </td> 
+            </tr>
+            <tr>
+                <td >Your point</td><td>
+                    @if ($results == null)
+                    {{ 0 }} @else {{ $results->users_point }}
+                @endif
+            </td>
             </tr>
         </table>
         <a href="{{ url('index/exam') }}" class="btn btn-lg btn-info">Try Again</a>

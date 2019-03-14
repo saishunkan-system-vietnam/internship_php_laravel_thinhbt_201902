@@ -99,6 +99,7 @@ class IndexController extends Controller
 
         //tinh diem
         $total = 0;
+        $a = array();
         //kiem tra xem co 
         if (isset($answers['answer'])) {
             //cau tra loi cua user 
@@ -112,8 +113,10 @@ class IndexController extends Controller
                             //kiem tra tung cau xem co bao nhieu cau dung
                             if (in_array($ans,$checkId)) {
                                     $checkAns++;
+                                    $a[$ans]['check'] = 1;
                             }else {
                                     $checkAns = 0;
+                                    $a[$ans]['check'] = 0;
                             }
                             //neu so cau tra loi dung cua user = so cau tra loi dung cua de thi cong diem, con lai thi ko cong
                             if ($checkAns == $answers['count'][$key]) {
@@ -121,12 +124,20 @@ class IndexController extends Controller
                             }
                         }
                     }
+                    else {
+                        $a[implode($value)]['check'] = 0;
+                    }
                 }else {
+                    //radio
                     if (in_array($value,$checkId)) {
                             $total = $total + $answers['point'][$key];
+                            $a[$value]['check'] = 1;
+                    } else {
+                        $a[$value]['check'] = 0;
                     }
                 }
             }
+           
 
             //luu cau tra loi
             $answers_id = "";
@@ -169,25 +180,38 @@ class IndexController extends Controller
                 'updated_at' => now()
             ]);
         }
-
-        $data["arr"] = DB::table('results')->join('threads','results.threads_id','=','threads.id')
+        //lay diem 
+        $data["results"] = DB::table('results')->join('threads','results.threads_id','=','threads.id')
                                             ->join('answers','results.answers_id','=','answers.id')
                                             ->where('users_id','=',$id)
                                             ->select('results.users_id','results.threads_id','results.answers_id','results.users_point')
                                             ->first();
+                                            
+        //
+        $ans = explode(",",$data["results"]->answers_id);
+        $data["stdAns"] = array();
+        foreach ($ans as $value) {
+            $list = DB::table('answers')->where('id','=',$value)->select('answers','type')->get()->toArray();
+            $a[$value]['value'] = $list[0]->answers;
+        }
+        
+         
+
+        //lay de va diem cua de
         $data['details'] = DB::table('thread_details')->join('questions','thread_details.questions_id','=','questions.id')
                                             ->join('threads','thread_details.threads_id','=','threads.id')
                                             ->where('threads.user_id','=',$id)
                                             ->select('thread_details.threads_id',DB::raw('sum(questions.point) as point'))
                                             ->groupBy('thread_details.threads_id')
                                             ->first();  
-                                            
+        //lay cau tra loi dung cua de                    
         $data['answers'] = DB::table('answers')->join('thread_details','answers.questions_id','=','thread_details.questions_id')
                                             ->join('questions','thread_details.questions_id','=','questions.id')
                                             ->select('answers.type','answers.answers','thread_details.threads_id','answers.questions_id','questions.content','answers.id')
                                             ->where('thread_details.threads_id','=',$threads[0]->id)
                                             ->where('answers.type','=',1)
                                             ->get();
+
         return view('frontend.results',$data);
     }
 

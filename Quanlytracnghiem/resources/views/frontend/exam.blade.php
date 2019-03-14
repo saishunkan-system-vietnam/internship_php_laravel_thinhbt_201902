@@ -27,16 +27,24 @@
     #scroll:hover{
         background-color: #555;
     }
+
+    div.sticky{
+        position: sticky;
+        top: 250px;
+    }
 </style>
 
 <script>
     
-    
+    function reset() {
+        document.getElementById("examForm").reset(); 
+    }
     //-----------------------------------------------------------------------------------
     //disable sau khi start
     function disableButton(btn){
         document.getElementById(btn.id).disabled = true;
         $("form").show();
+        $("button").show();
         alert("Bắt đầu tính giờ làm bài");
         document.onkeydown = function() 
         {
@@ -94,7 +102,9 @@
         
  <!-- content -->
 <div class="row" id="content">
+    
     <div id="left" class="col-lg-3 col-md-3 col-sm-12 col-12">
+        <div class="sticky">
         <div class="card card-header bg-secondary text-light">Student infomation</div>
         <table class="table table-striped table-bordered">
             <tr>
@@ -113,8 +123,19 @@
                 <td>Time</td><td>{{ $time->time }} minutes</td>
             </tr>
         </table>
+        <div style="background-color: red;color: white;font-size:30px; text-align: center">Time:  <span id="m">{{ $time->time }}</span>:<span id="s">00</span> </div>
+        <br>
         <input type="button" id="btn1" name="start" onclick="start();disableButton(this);" class="btn btn-success btn-lg" value="Start Exam">
+        <button type="button" id="done" onclick="access();" class="btn btn-danger btn-lg">
+            Done
+        </button>
+
+        <button type="reset" id="reset" onclick="reset()" class="btn btn-primary btn-lg">
+            Reset All
+        </button>
+        </div>
     </div>
+    
 
 
 <!-- right -->
@@ -123,7 +144,6 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="card card-header bg-info text-light">Thread</div>
             <br>
-            <div style="background-color: red;color: white;font-size:30px; text-align: center">Time:  <span id="m">{{ $time->time }}</span>:<span id="s">00</span> </div>
             <table>
                 <tr>
                 <td><br></td>
@@ -168,14 +188,6 @@
                 <input type="hidden" name="total" value="0">
                 @endforeach
             </table>
-            
-            <button type="button" id="done" onclick="access();" class="btn btn-danger btn-lg">
-                Done
-            </button>
-
-            <button type="reset" id="reset" class="btn btn-primary btn-lg">
-                Reset All
-            </button>
         </form>
     </div>
 </div>
@@ -229,11 +241,11 @@
         }, 1000);
     }
 
+    //-----------------------------------------------------------------
+    $("form").hide();
+    $("button").hide();
 </script>
 
-<script>
-        $("form").hide();
-</script>
 
 <!-- footer -->
 <div class="row" id="footer" >
