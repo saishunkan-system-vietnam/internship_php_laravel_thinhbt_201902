@@ -102,7 +102,7 @@
             </div>
 
             <ul class="nav">
-                <li class="active">
+                <li>
                     <a href="{{ url('index/exam') }}">
                         <i class="pe-7s-browser"></i>
                         <p>Trang bài làm</p>
@@ -121,24 +121,24 @@
                   </a>
               </li>
                 <li>
-                    <a href="{{ url('admin/detail') }}">
+                    <a  href="{{ url('admin/detail') }}">
                         <i class="pe-7s-note2"></i>
                         <p>Chi tiết đề</p>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ url('admin/question') }}">
+                <li >
+                    <a  href="{{ url('admin/question') }}">
                         <i class="pe-7s-news-paper"></i>
                         <p>Quản lý câu hỏi</p>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ url('admin/answer') }}">
+                <li >
+                    <a  href="{{ url('admin/answer') }}">
                         <i class="pe-7s-science"></i>
                         <p>Câu trả lời</p>
                     </a>
                 </li>
-                <li>
+                <li >
                     <a href="{{ url('admin/result') }}">
                         <i class="pe-7s-diskette"></i>
                         <p>Kết quả</p>
