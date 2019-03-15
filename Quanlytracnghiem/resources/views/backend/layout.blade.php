@@ -106,9 +106,7 @@
     </div>
 
     <div class="main-panel">
-        </nav>
-
-
+        
         <div class="content">
             <div class="container-fluid">
               @yield('do-du-lieu')
@@ -156,12 +154,6 @@
             console.log($('#leftActive').val());
             var name_action = $('#leftActive').val();
             $('#' + name_action).addClass('active');
-            // if ($('#leftActive').val() == ) {
-                
-            // }
         });
-        
-
 	</script>
-
 </html>

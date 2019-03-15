@@ -261,6 +261,7 @@ class IndexController extends Controller
                 }
                 $o++;
             }else{
+                
                 if($data["stdAns"][$value]['check'] == 1){
                     $dataMemViews[$o]['answers'] =  '<b style="color: red;">'.$data["stdAns"][$value]['value'].'</b>';
                 }else{
