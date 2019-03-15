@@ -1,5 +1,6 @@
 @extends("backend.layout")
 @section("do-du-lieu")
+<input type="hidden" id="leftActive" value="answer">
     <div class="col-md-8 col-xs-offset-2">
     {{-- <div style="margin-bottom:5px;">
 		<a href="{{ url('admin/question/add') }}" class="btn btn-success"> + Add question</a>

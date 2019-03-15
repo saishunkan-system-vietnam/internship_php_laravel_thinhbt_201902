@@ -1,7 +1,7 @@
 @extends("backend.layout")
 @section("do-du-lieu")
+<input type="hidden" id="leftActive" value="detail">
 <div class="col-md-8 col-xs-offset-2">
-	
 	<div class="panel panel-primary">
 		<div class="panel-heading">List Detail</div>
 		<div class="panel-body">

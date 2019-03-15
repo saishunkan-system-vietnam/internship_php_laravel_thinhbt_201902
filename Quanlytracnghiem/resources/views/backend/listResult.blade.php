@@ -1,5 +1,6 @@
 @extends("backend.layout")
 @section("do-du-lieu")
+<input type="hidden" id="leftActive" value="result">
 <div class="col-md-8 col-xs-offset-2">
 	
 	<div class="panel panel-primary">

@@ -1,53 +1,3 @@
-{{-- <!DOCTYPE html>
-<html>
-<head>
-	<title>Admin page</title>
-  <meta charset="utf-8">
-  <link rel="icon" type="image/png" href= "{{ asset('frontend/images/icons/favicon.ico') }}"/>
-	<link rel="stylesheet" type="text/css" href="{{ asset('backend/css/bootstrap.min.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('backend/fontawesome/css/fontawesome.min.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('backend/fontawesome/css/solid.min.css')}}">
-  <!-- load thu vien jquery -->
-  
-  <script type="text/javascript" src="{{ asset('backend/js/jquery-3.3.1.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('backend/js/bootstrap.min.js') }}"></script>
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <!-- <a class="navbar-brand" href="#">Project name</a> -->
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Xin chào, {{ Auth::user()->name }}</a></li>
-            <li class="active"><a href="{{ url('index/exam') }}">Trang bài làm</a></li>
-            <li class="active"><a href="{{ url('admin/thread') }}">Quản lý đề</a></li>
-            <li class="active"><a href="{{ url('admin/detail') }}">Chi tiết đề</a></li>
-            <li class="active"><a href="{{ url('admin/question') }}">Quản lý câu hỏi</a></li>
-            <li class="active"><a href="{{ url('admin/answer') }}">Câu trả lời</a></li>
-            <li class="active"><a href="{{ url('admin/result') }}">Quản lý điểm</a></li>
-            <li class="active"><a href="{{ url('admin/user') }}">Quản lý user</a></li>
-            <li class="active"><a href="{{ url('logout') }}">Đăng xuất</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-
-   <div class="container-fluid" style="margin-top:70px;">
-   	@yield('do-du-lieu')
-   </div>
-
-</body>
-</html> --}}
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -72,7 +22,7 @@
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="{{ asset('backend/css/demo.css') }}assets/css/demo.css" rel="stylesheet" />
+    <link href="{{ asset('backend/css/demo.css') }}" rel="stylesheet" />
 
 
     <!--     Fonts and icons     -->
@@ -96,49 +46,49 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="#" class="simple-text">
+                <a href="{{ url('admin/user') }}" class="simple-text">
                   {{ Auth::user()->name }}
                 </a>
             </div>
-
+            
             <ul class="nav">
                 <li>
-                    <a href="{{ url('index/exam') }}">
+                    <a  href="{{ url('index/exam') }}">
                         <i class="pe-7s-browser"></i>
                         <p>Trang bài làm</p>
                     </a>
                 </li>
-                <li>
+                <li id="user" >
                     <a href="{{ url('admin/user') }}">
                         <i class="pe-7s-user"></i>
                         <p>User</p>
                     </a>
                 </li>
-                <li>
-                  <a href="{{ url('admin/thread') }}">
+                <li id="thread" >
+                  <a  href="{{ url('admin/thread') }}">
                       <i class="pe-7s-folder"></i>
                       <p>Quản lý đề</p>
                   </a>
               </li>
-                <li>
+                <li id="detail"  >
                     <a  href="{{ url('admin/detail') }}">
                         <i class="pe-7s-note2"></i>
                         <p>Chi tiết đề</p>
                     </a>
                 </li>
-                <li >
+                <li id="question"  >
                     <a  href="{{ url('admin/question') }}">
                         <i class="pe-7s-news-paper"></i>
                         <p>Quản lý câu hỏi</p>
                     </a>
                 </li>
-                <li >
+                <li id="answer"   >
                     <a  href="{{ url('admin/answer') }}">
                         <i class="pe-7s-science"></i>
                         <p>Câu trả lời</p>
                     </a>
                 </li>
-                <li >
+                <li id="result"  >
                     <a href="{{ url('admin/result') }}">
                         <i class="pe-7s-diskette"></i>
                         <p>Kết quả</p>
@@ -156,24 +106,6 @@
     </div>
 
     <div class="main-panel">
-        {{-- <nav class="navbar navbar-default navbar-fixed">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#"></a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        
-						            <li class="separator hidden-lg"></li>
-                    </ul>
-                </div>
-            </div> --}}
         </nav>
 
 
@@ -194,7 +126,7 @@
 	<script src="{{ asset('backend/js/bootstrap.min.js') }}" type="text/javascript"></script>
 
 	<!--  Charts Plugin -->
-	{{-- <script src="assets/js/chartist.min.js"></script> --}}
+	{{-- <script src="{{ asset('backend/js/chartist.min.js') }}"></script> --}}
 
     <!--  Notifications Plugin    -->
     <script src="{{ asset('backend/js/bootstrap-notify.js') }}"></script>
@@ -211,18 +143,25 @@
 	<script type="text/javascript">
     	$(document).ready(function(){
 
-        	demo.initChartist();
+        	// demo.initChartist();
 
-        	$.notify({
-            	icon: 'pe-7s-gift',
-            	message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
+        	// $.notify({
+            // 	icon: 'pe-7s-gift',
+            // 	message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
 
-            },{
-                type: 'info',
-                timer: 4000
-            });
+            // },{
+            //     type: 'info',
+            //     timer: 4000
+            // });
+            console.log($('#leftActive').val());
+            var name_action = $('#leftActive').val();
+            $('#' + name_action).addClass('active');
+            // if ($('#leftActive').val() == ) {
+                
+            // }
+        });
+        
 
-    	});
 	</script>
 
 </html>
