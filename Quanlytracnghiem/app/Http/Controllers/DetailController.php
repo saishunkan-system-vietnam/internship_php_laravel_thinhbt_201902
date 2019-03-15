@@ -35,8 +35,13 @@ class DetailController extends Controller
     {
         $questions_id = $request->get('questions_id');
         $total_questions = DB::table('threads')->where("id","=",$id)->get()->toArray();
-        
-        if (isset($questions_id)) {
+        $thread_details = DB::table('thread_details')->where("threads_id","=",$id)->select('questions_id')->get()->toArray();
+        $quesions_pack = array();
+        foreach ($thread_details as $value) {
+            $quesions_pack[] = $value->questions_id;
+        }
+
+        if (in_array($questions_id,$quesions_pack)) {
             $errors = new MessageBag(['errorQuestion' => 'Question is already exists!!!']);
             return redirect()->back()->withInput()->withErrors($errors);
         }else {
@@ -50,7 +55,6 @@ class DetailController extends Controller
             DB::table('threads')->where("id","=",$id)->update(['total_questions'=>$total_questions[0]->total_questions + 1]);
             return redirect(url('admin/thread'));
         }
-
         
     }
 

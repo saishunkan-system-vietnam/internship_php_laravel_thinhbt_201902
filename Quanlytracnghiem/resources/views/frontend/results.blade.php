@@ -28,12 +28,18 @@
                 @endforeach</td>
             </tr>
             <tr>
-                <td>Your answer</td><td>
+                <td>Your answer</td><td style="">
                     @if ($results == null)
                     {{ 0 }}
                     @else 
                         @foreach ($stdAns as $item)
-                            <div style="text-transform: none">{{ $item }}</div>
+                        
+                            @if ($item['check'] == 1)
+                            
+                                <p style="color: red;font-size: 20px;"> {{ $item['value'] }} </p> 
+                            @else
+                                <p style="color: black;font-size: 20px;">{{ $item['value'] }}</p> 
+                            @endif
                         @endforeach
                 @endif
                 </td> 

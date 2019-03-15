@@ -23,10 +23,7 @@
 				</tr>
 				@endforeach
 			</table>
-			<style type="text/css">
-				.pagination{padding:0px; margin:0px;}
-			</style>
-			
+			{{ $arr->links() }}
 		</div>
 	</div>
 </div>

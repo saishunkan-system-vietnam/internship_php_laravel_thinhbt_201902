@@ -15,16 +15,14 @@ class QuestionController extends Controller
     //list question
     public function listQuestion(Request $request)
     {
-    	$data['questions'] = DB::table('questions')->orderBy('questions.id','desc')
-                                                   ->paginate(10);
+    	$data['questions'] = DB::table('questions')->orderBy('questions.id','desc')->paginate(10);
     	return view('backend.listQuestion',$data);
     }
 
     //question edit
     public function edit(Request $request,$id)
     {	
-    	$data['record'] = DB::table('questions')->where('questions.id','=',$id)
-                                              ->first();
+    	$data['record'] = DB::table('questions')->where('questions.id','=',$id)->first();
     	return view('backend.addEditQuestion',$data);
     }
 
@@ -71,16 +69,13 @@ class QuestionController extends Controller
             'point' => 'bail|required|numeric|max:5'
 
         ]);
-        
 
-    	 if ($validator->fails()) {
+    	if ($validator->fails()) {
             return redirect('admin/question/add')
                         ->withErrors($validator)
                         ->withInput();
         }
 
-
-        //them cau hoi dong thoi co dap an
         $question = new Question;
         $question->content = $content;
         $question->point = $point;
@@ -88,29 +83,6 @@ class QuestionController extends Controller
         $question->updated_at = now();
         $question->save();
 
-        // try {
-		// 	DB::beginTransaction();
-		// 	$question = new Question;
-		// 	$question->content = $content;
-        //     $question->point = $point;
-		// 	$question->created_at = now();
-		// 	$question->updated_at = now();
-
-		// 	if($question->save()) {
-		// 	 	$answer = new Answer();
-		// 	 	$questionID = $question->id;
-		// 		$answer->questions_id = $questionID;
-        //         $answer->answers = $answers;
-        //         $answer->type = $type;
-		// 		$answer->created_at = now();
-		// 		$answer->updated_at = now();
-		// 		$answer->save();
-		// 		}
-		// 	DB::commit();
-		// } catch (Exception $e) {
-		// 	DB::rollBack();
-		// 	return $e;
-		// }
         return redirect(url('admin/question'));
     }
 

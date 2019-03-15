@@ -14,9 +14,8 @@ class ResultController extends Controller
     {
         
         $data["arr"] = DB::table('results')->leftjoin('users','results.users_id','=','users.id')
-                                           //->where('results.users_id','=','users.id')
                                            ->select('users.name','results.threads_id','results.users_point','results.answers_id','results.id')
-                                           ->get();
+                                           ->paginate(10);
         return view("backend.listResult",$data);
         
     }

@@ -14,6 +14,7 @@
 					<th>Name</th>
 					<th>Email</th>
 					<th>Phone</th>
+					<th>Type</th>
 
 					<th style="width:130px;"></th>
 				</tr>
@@ -22,6 +23,7 @@
 					<td>{{ $rows->name }}</td>
 					<td>{{ $rows->email }}</td>
 					<td>{{ $rows->phone }}</td>
+					<td>@if (($rows->type) == 1) {{ 'Admin' }} @else {{ 'Student' }} @endif</td>
 					<td style="text-align:center;">
 						<a href="{{ url('admin/user/edit/'.$rows->id) }}"><i class="fas fa-pen-square fa-2x"></i></a>&nbsp;
 						<a href="{{ url('admin/user/delete/'.$rows->id) }}" onclick="return window.confirm('Are you sure?');"><i class="fas fa-trash fa-2x"></i></a>

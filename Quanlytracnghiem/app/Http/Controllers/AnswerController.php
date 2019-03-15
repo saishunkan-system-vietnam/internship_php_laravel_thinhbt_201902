@@ -42,7 +42,6 @@ class AnswerController extends Controller
        }else{
 
         DB::table('answers')->where('id','=',$id)->update(array('answers'=>$answers,'type'=>$type));
-
         return redirect(url('admin/answer'));
        }
     }
@@ -52,5 +51,4 @@ class AnswerController extends Controller
         DB::table('answers')->where('id','=',$id)->delete();
     	return redirect(url('admin/answer'));
     }
-  
 }
