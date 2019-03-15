@@ -94,7 +94,7 @@ class IndexController extends Controller
         foreach ($check as $value) {
                 $checkId[] = $value->id;
         }
-
+        //dd($checkId);
         //tinh diem
         $total = 0;
         $typeAns = array();
@@ -194,6 +194,7 @@ class IndexController extends Controller
                                             ->select('results.users_id','results.threads_id','results.answers_id','results.users_point')
                                             ->first();
                                             
+        //dd($answers);
         //
         $ans = explode(",",$data["results"]->answers_id);
         foreach ($ans as $value) {
@@ -202,7 +203,7 @@ class IndexController extends Controller
         }
         $data["stdAns"] = $typeAns;
         
-         
+         //dd($data["stdAns"]);
 
         //lay de va diem cua de
         $data['details'] = DB::table('thread_details')->join('questions','thread_details.questions_id','=','questions.id')
@@ -218,7 +219,71 @@ class IndexController extends Controller
                                             ->where('thread_details.threads_id','=',$threads[0]->id)
                                             ->where('answers.type','=',1)
                                             ->get();
-
+        $dataAnswers = $data['answers'];
+        $flgAID = 0;
+        $dataAViews=array();
+        $k=-1;
+        $dataQues = array();
+        for($i=0;$i<count($dataAnswers);$i++){
+            if($dataAnswers[$i]->questions_id != $flgAID){
+                $k++;
+                $dataAViews[$k]=$dataAnswers[$i];
+                $dataAViews[$k]->answers = $dataAnswers[$i]->answers;
+                $flgAID = $dataAnswers[$i]->questions_id;
+                $dataAViews[$k]->number = $k + 1;
+                $dataQues[$dataAnswers[$i]->questions_id] = $k + 1;
+            }else{
+                $dataAViews[$k]->answers .=' || '.$dataAnswers[$i]->answers;
+            }
+        }
+        $data['answers'] = $dataAViews;
+        $dataMemViews = array();
+        $o=0;
+       // dd($data["stdAns"]);
+        foreach ($answers['answer'] as $key => $value){
+            $dataMemViews[$o]['number'] =  $dataQues[$key];
+             $dataMemViews[$o]['flg'] = 1;
+           
+            if(is_array($value)){
+                $dataMemViews[$o]['answers'] = '';
+                 foreach ($value as $key2 => $value2){
+                     if($dataMemViews[$o]['answers']!=''){
+                        if($data["stdAns"][$key2]['check'] == 1){
+                            $dataMemViews[$o]['answers'] .= ' || '. '<b style="color: red;">'.$data["stdAns"][$key2]['value'].'</b>';
+                        }else{
+                            $dataMemViews[$o]['answers'] .= ' || '. '<b style="color: black;">'.$data["stdAns"][$key2]['value'].'</b>';
+                             $dataMemViews[$o]['flg'] = 0;
+                        }
+                     }else{
+                        if($data["stdAns"][$key2]['check'] == 1){
+                            $dataMemViews[$o]['answers'] =  '<b style="color: red;">'.$data["stdAns"][$key2]['value'].'</b>';
+                        }else{
+                            $dataMemViews[$o]['answers'] =  '<b style="color: black;">'.$data["stdAns"][$key2]['value'].'</b>';
+                             $dataMemViews[$o]['flg'] = 0;
+                        }
+                     }
+                }
+                $o++;
+            }else{
+                if($data["stdAns"][$value]['check'] == 1){
+                    $dataMemViews[$o]['answers'] =  '<b style="color: red;">'.$data["stdAns"][$value]['value'].'</b>';
+                }else{
+                    $dataMemViews[$o]['answers'] =  '<b style="color: black;">'.$data["stdAns"][$value]['value'].'</b>';
+                    $dataMemViews[$o]['flg'] = 0;
+                }
+            }
+        }
+        for($i=0;$i<(count($dataMemViews)-1);$i++){
+            for($j=$i+1;$j<count($dataMemViews);$j++){
+                if($dataMemViews[$j]['number'] < $dataMemViews[$i]['number'])
+                {
+                    $temp = $dataMemViews[$j];
+                    $dataMemViews[$j] = $dataMemViews[$i];
+                    $dataMemViews[$i] = $temp;
+                }
+            }
+        }
+         $data["stdAns"] = $dataMemViews;
         return view('frontend.results',$data);
     }
 

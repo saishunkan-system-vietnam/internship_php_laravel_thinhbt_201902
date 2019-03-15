@@ -10,8 +10,8 @@
 
 <!-- result -->
     <div id="right" class="col-lg-12 col-md-12 col-sm-12 col-12">
-        <div class="card card-header bg-success text-light">Result</div>
-        <table class="table table-bordered" style="text-align: center">
+        <div class="card card-header bg-success text-light" style="text-align: left">Result</div>
+        <table class="table table-bordered" style="text-align: left">
             <tr>
                 <td style="width: 500px;">Name</td><td>{{ Auth::user()->name }}</td>
             </tr>
@@ -24,7 +24,8 @@
             </tr>
             <tr>
                 <td >Right answer</td><td>@foreach ($answers as $item)
-                {{ $item->content }} : <p style="color: red;">{{ $item->answers }} </p> 
+                Câu {{ $item->number }}: {{ $item->content }} 
+                <p style="color: red;"><b style="color: blue;">Đáp án Đúng:</b> {{ $item->answers }} </p> 
                 @endforeach</td>
             </tr>
             <tr>
@@ -34,12 +35,7 @@
                     @else 
                         @foreach ($stdAns as $item)
                         
-                            @if ($item['check'] == 1)
-                            
-                                <p style="color: red;font-size: 20px;"> {{ $item['value'] }} </p> 
-                            @else
-                                <p style="color: black;font-size: 20px;">{{ $item['value'] }}</p> 
-                            @endif
+                                <p ><b style='color: black'>Câu {{ $item['number'] }}:</b><br>Đáp án chọn: <?= $item['answers'] ?> (<?= $item['flg']? 'Đúng' : 'Sai'?> ) </p> 
                         @endforeach
                 @endif
                 </td> 
