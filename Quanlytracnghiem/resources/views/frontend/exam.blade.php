@@ -41,8 +41,11 @@
     }
     //-----------------------------------------------------------------------------------
     //disable sau khi start
-    function disableButton(btn){
-        document.getElementById(btn.id).disabled = true;
+    
+
+    function hideBtn(){
+        $('#start').hide();
+        //document.getElementById(btn.id).disabled = true;
         $("form").show();
         $("button").show();
         alert("Bắt đầu tính giờ làm bài");
@@ -125,7 +128,7 @@
         </table>
         <div style="background-color: red;color: white;font-size:30px; text-align: center">Time:  <span id="m">{{ $time->time }}</span>:<span id="s">00</span> </div>
         <br>
-        <input type="button" id="btn1" name="start" onclick="start();disableButton(this);" class="btn btn-success btn-lg" value="Start Exam">
+        <input type="button" id="start" name="start" onclick="start();hideBtn();" class="btn btn-success btn-lg" value="Start Exam">
         <button type="button" id="done" onclick="access();" class="btn btn-danger btn-lg">
             Done
         </button>

@@ -94,11 +94,11 @@ class IndexController extends Controller
         foreach ($check as $value) {
                 $checkId[] = $value->id;
         }
-
+        
         //tinh diem
         $total = 0;
         $typeAns = array();
-        //kiem tra xem co 
+        //kiem tra xem co cau tra loi ko
         if (isset($answers['answer'])) {
             //cau tra loi cua user 
             foreach ($answers['answer'] as $key => $value) {
@@ -192,18 +192,18 @@ class IndexController extends Controller
                                             ->join('answers','results.answers_id','=','answers.id')
                                             ->where('users_id','=',$id)
                                             ->select('results.users_id','results.threads_id','results.answers_id','results.users_point')
-                                            ->first();
-                                            
-        //
+                                            ->first();               
+        
+        //cau tra loi cua user
         $ans = explode(",",$data["results"]->answers_id);
         foreach ($ans as $value) {
-            $list = DB::table('answers')->where('id','=',$value)->select('answers','type')->get()->toArray();
+            $list = DB::table('answers')->where('id','=',$value)->select('id','answers','type','questions_id')->get()->toArray();
             $typeAns[$value]['value'] = $list[0]->answers;
+            $typeAns[$value]['id'] = $list[0]->id;
         }
         $data["stdAns"] = $typeAns;
         
          
-
         //lay de va diem cua de
         $data['details'] = DB::table('thread_details')->join('questions','thread_details.questions_id','=','questions.id')
                                             ->join('threads','thread_details.threads_id','=','threads.id')
